@@ -1,0 +1,34 @@
+[
+  {
+    "EB_Number": "AA00000001",
+    "FirstName": "Something",
+    "LastName": "Somethingelse",
+    "RegistryNumber": "УК01252051",
+    "Class": [
+      { "ClassName": "Mathematic", "ClassScore": 500 },
+      { "ClassName": "Physics", "ClassScore": 450 },
+      { "ClassName": "Mongolian", "ClassScore": 300 }
+    ]
+  },
+  {
+    "EB_Number": "AA00000002",
+    "FirstName": "Something2",
+    "LastName": "Somethingelse2",
+    "RegistryNumber": "УК01252051",
+    "Class": [
+      { "ClassName": "Mathematic", "ClassScore": 400 },
+      { "ClassName": "Physics", "ClassScore": 350 },
+      { "ClassName": "Mongolian", "ClassScore": 200 }
+    ]
+  },
+  {
+    "EB_Number": "AA00000003",
+    "FirstName": "Something3",
+    "LastName": "Somethingelse3",
+    "RegistryNumber": "УК01252051",
+    "Class": [
+      { "ClassName": "Mathematic", "ClassScore": 600 },
+      { "ClassName": "Mongolian", "ClassScore": 600 }
+    ]
+  }
+]
