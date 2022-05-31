@@ -1,26 +1,26 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.css";
-import "./assets/scss/paper-dashboard.scss";
-import "./assets/demo/demo.css";
-import "./App.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import './assets/scss/paper-dashboard.scss';
+import './assets/demo/demo.css';
+import './App.css';
 
-import AdminLogin from "./views/Admin/AdminLogin";
-import ComisLogin from "./views/Comis/ComisLogin";
-import Dashboard2 from "./layouts/Comis.js";
-import Dashboard from "./layouts/Admin.js";
-import Home from "./views/Home/Home.jsx";
-import About from "./views/Home/About.js";
-import School from "./views/Home/School";
-import Schoolz from "./views/Home/Schools/School.js";
-import Hutulburs from "./views/Home/Schools/Hutulburs.js";
-import Login from "./views/Home/Login.js";
-import Register3 from "./views/Comis/Register3.js";
-import Med from "./views/Home/Med.js";
-import Med2 from "./views/Home/Med2_0.js";
-import DashNavbar from "./components/Navbars/DashNavbar.js";
-import Layout from "./layouts/Layout";
+import AdminLogin from './views/Admin/AdminLogin';
+import ComisLogin from './views/Comis/ComisLogin';
+import Dashboard2 from './layouts/Comis.js';
+import Dashboard from './layouts/Admin.js';
+import Home from './views/Home/Home.jsx';
+import About from './views/Home/About.js';
+import School from './views/Home/School';
+import Schoolz from './views/Home/Schools/School.js';
+import Hutulburs from './views/Home/Schools/Hutulburs.js';
+import Login from './views/Home/Login.js';
+import Register3 from './views/Comis/Register3.js';
+import Med from './views/Home/Med.js';
+import Med2 from './views/Home/Med2_0.js';
+import DashNavbar from './components/Navbars/DashNavbar.js';
+import Layout from './layouts/Layout';
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
@@ -31,7 +31,7 @@ ReactDOM.render(
       </Route>
       <Route path="/Info">
         <Layout>
-          <School />
+          <Schoolz />
         </Layout>
       </Route>
       <Route path="/About">
@@ -46,7 +46,7 @@ ReactDOM.render(
       </Route>
       <Route path="/School">
         <Layout>
-          <Schoolz />
+          <School />
         </Layout>
       </Route>
       <Route path="/Med">
@@ -59,9 +59,7 @@ ReactDOM.render(
           <Hutulburs />
         </Layout>
       </Route>
-    </Switch>
-    <Switch>
-      <Route path="/comis" render={(props) => <Dashboard2 {...props} />} />
+      {/* <Route path="/comis" render={(props) => <Dashboard2 {...props} />} />
       <Route path="/Admin" render={(props) => <Dashboard {...props} />} />
       <Route path="/comis/2">
         <Register3 />
@@ -72,8 +70,8 @@ ReactDOM.render(
       </Route>
       <Route path="/ComisLogin">
         <ComisLogin />
-      </Route>
+      </Route> */}
     </Switch>
   </BrowserRouter>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

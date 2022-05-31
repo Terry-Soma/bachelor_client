@@ -1,156 +1,80 @@
-import React, { useEffect } from "react";
-import MenuItem from "../MenuItem";
-import css from "./style.module.css";
-import Contex from "../../context";
-import Logo from "../Logo";
-import { Container, Navbar, Offcanvas, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
-
+import React, { useEffect, useState } from 'react';
+import MenuItem from '../MenuItem';
+import './style.css';
+import Contex from '../../context';
+import Logo from '../../assets/img/logo.png';
+import { Container, Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 export default function Menu() {
   function logout() {
     Contex.st = false;
     Contex.succ = false;
-    Contex.bt = "0";
+    Contex.bt = '0';
   }
-  //salbar surguuli - /info
-  //hutulbur - /schools
-  //burtguuleh -/login
+
   useEffect(() => {});
-  if (Contex.st === false) {
-    return (
-      <>
-        <Navbar
-          fixed="top"
-          className={css["header"]}
-          key="xl"
-          bg="primary"
-          expand="xl"
-          className="mb-3"
-        >
-          <Container fluid>
-            <Navbar.Toggle
-              style={{ color: "white" }}
-              aria-controls={`offcanvasNavbar-expand-"xl"`}
-            />
-            <Navbar.Offcanvas
-              id={`offcanvasNavbar-expand-"xl"`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-"xl"`}
-              placement="end"
-            >
-              <Offcanvas.Header
-                style={{ backgroundColor: "rgb(32, 32, 32)" }}
-                className="my-auto"
-                closeButton
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <>
+      <Navbar
+        collapseOnSelect
+        bg="myNav"
+        variant="light"
+        sticky="top"
+        expand="sm"
+        expanded={expanded}
+      >
+        <Container>
+          <Navbar.Brand>
+            <Link to="/" onClick={() => setExpanded(false)}>
+              <img
+                src={Logo}
+                className="d-inline-block align-top ms-3"
+                alt="Их засаг лого"
+                height="50px"
+              />
+            </Link>
+          </Navbar.Brand>
+
+          <Navbar.Toggle
+            onClick={() => {
+              setExpanded(expanded ? false : 'expanded');
+            }}
+          />
+          <Navbar.Collapse id="navbarScroll">
+            <Nav className="me-auto">
+              <Link
+                className="nav-link p-3 fs-4 mx-4"
+                to="/info"
+                onClick={() => setExpanded(false)}
               >
-                <Offcanvas.Title
-                  className={css["title"]}
-                  id={`offcanvasNavbarLabel-expand-"xl"`}
-                >
-                  Их Засаг
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body className={css["header"]}>
-                <Nav className="justify-content-center flex-grow-1 pe-3">
-                  <Link className={css["Header-nav"]} to="/">
-                    <div className={css["nav-top"]} />
-                    {/* <Logo /> */}
-                    Logo
-                    <div className={css["nav-bottom"]} />
-                  </Link>
-                  <Link className={css["Header-nav"]} to="/Info">
-                    <div className={css["nav-top"]} />
-                    Салбар сургууль
-                    <div className={css["nav-bottom"]} />
-                  </Link>
-                  <Link
-                    className={css["Header-nav"]}
-                    to="/schools"
-                    state={{ Sch_Id: 6 }}
-                  >
-                    <div className={css["nav-top"]} />
-                    Хөтөлбөрүүд
-                    <div className={css["nav-bottom"]} />
-                  </Link>
-                  <Link className={css["Header-nav"]} to="/Login">
-                    <div className={css["nav-top"]} />
-                    Бүртгүүлэх
-                    <div className={css["nav-bottom"]} />
-                  </Link>
-                </Nav>
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-      </>
-    );
-  }
-  //salbar surguuli - /info
-  //hutulbur - /schools
-  //medeelel oruulah -/med
-  //garah -/logout
-  else {
-    return (
-      <>
-        <Navbar
-          className={css["header"]}
-          key="xl"
-          bg="primary"
-          expand="xl"
-          className="mb-3"
-        >
-          <Container fluid>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-"xl"`} />
-            <Navbar.Offcanvas
-              id={`offcanvasNavbar-expand-"xl"`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-"xl"`}
-              placement="end"
-            >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title
-                  className="Header-Title"
-                  id={`offcanvasNavbarLabel-expand-"xl"`}
-                >
-                  Их Засаг
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <Nav className="justify-content-center flex-grow-1 pe-3">
-                  <Link className={css["Header-nav"]} to="/">
-                    <div className={css["nav-top"]} />
-                    {/* <Logo /> */}
-                    Logo
-                    <div className={css["nav-bottom"]} />
-                  </Link>
-                  <Link className={css["Header-nav"]} to="/Info">
-                    <div className={css["nav-top"]} />
-                    Салбар сургууль
-                    <div className={css["nav-bottom"]} />
-                  </Link>
-                  <Link
-                    className={css["Header-nav"]}
-                    to="/schools"
-                    state={{ Sch_Id: 6 }}
-                  >
-                    <div className={css["nav-top"]} />
-                    Хөтөлбөрүүд
-                    <div className={css["nav-bottom"]} />
-                  </Link>
-                  <Link className={css["Header-nav"]} to="/med">
-                    <div className={css["nav-top"]} />
-                    Мэдээлэл оруулах
-                    <div className={css["nav-bottom"]} />
-                  </Link>
-                  <Link onClick={logout} className={css["Header-nav"]}>
-                    <div className={css["nav-top"]} />
-                    Гарах
-                    <div className={css["nav-bottom"]} />
-                  </Link>
-                </Nav>
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-      </>
-    );
-  }
+                Хөтөлбөрүүд
+              </Link>
+              <Link
+                className="nav-link fs-4 p-3 mx-4"
+                to="/school"
+                onClick={() => setExpanded(false)}
+              >
+                Салбар сургууль
+              </Link>
+            </Nav>
+            <Nav>
+              <Link
+                className="fs-4  p-3 mainbtn"
+                to="/login"
+                onClick={() => setExpanded(false)}
+              >
+                Бүртгүүлэх
+              </Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </>
+  );
+  // // }
+  // //salbar surguuli - /info
+  // //hutulbur - /schools
+  // //medeelel oruulah -/med
+  // //garah -/logout
 }
