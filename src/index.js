@@ -13,7 +13,7 @@ import Dashboard from './layouts/Admin.js';
 import Home from './views/Home/Home.jsx';
 import About from './views/Home/About.js';
 import School from './views/Home/School';
-import Schoolz from './views/Home/Schools/School.js';
+import Info from './views/Home/Schools/Info.js';
 import Hutulburs from './views/Home/Schools/Hutulburs.js';
 import Login from './views/Home/Login.js';
 import Register3 from './views/Comis/Register3.js';
@@ -31,7 +31,7 @@ ReactDOM.render(
       </Route>
       <Route path="/Info">
         <Layout>
-          <Schoolz />
+          <Info />
         </Layout>
       </Route>
       <Route path="/About">

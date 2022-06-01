@@ -1,22 +1,12 @@
 import React from 'react';
-import { Container, Row } from 'reactstrap';
-// used for making the prop types of this component
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-function Footer(props) {
+export default function Footer() {
   return (
     <>
-      {/* Footer */}
-      <footer className="text-center text-lg-start bg-light text-muted">
-        {/* Section: Social media */}
+      <footer className="text-center text-lg-start bg-light text-muted mt-5">
         <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-          {/* Left */}
-          <div className="me-5 d-none d-lg-block">
-            <span>Get connected with us on social networks:</span>
-          </div>
-          {/* Left */}
-          {/* Right */}
-          <div>
+          {/* <div>
             <a href className="me-4 text-reset">
               <i className="fab fa-facebook-f" />
             </a>
@@ -35,125 +25,73 @@ function Footer(props) {
             <a href className="me-4 text-reset">
               <i className="fab fa-github" />
             </a>
-          </div>
-          {/* Right */}
+          </div> */}
         </section>
-        {/* Section: Social media */}
-        {/* Section: Links  */}
         <section className>
           <div className="container text-center text-md-start mt-5">
-            {/* Grid row */}
             <div className="row mt-3">
-              {/* Grid column */}
               <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                {/* Content */}
                 <h6 className="text-uppercase fw-bold mb-4">
                   <i className="fas fa-gem me-3" />
-                  Company name
+                  ИХ ЗАСАГ
                 </h6>
                 <p>
-                  Here you can use rows and columns to organize your footer
-                  content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                  elit.
+                  Их Засаг ОУИС мэдлэгийг үйлдвэрлэгч, баялгийг бүтээгчдийг
+                  төрүүлэх, оюутан суралцагчдын ажил амьдралын баталгааг
+                  хангахад чиглэгдсэн сургалт, судалгаа, инновацийн бүтээлч
+                  чадамжтай, судалгааны их сургууль байна.
                 </p>
               </div>
-              {/* Grid column */}
-              {/* Grid column */}
+
               <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                {/* Links */}
-                <h6 className="text-uppercase fw-bold mb-4">Products</h6>
+                <h6 className="text-uppercase fw-bold mb-4">Цэс</h6>
                 <p>
-                  <a href="#!" className="text-reset">
-                    Angular
-                  </a>
+                  <Link to="/info" className="text-reset">
+                    Хөтөлбөрүүд
+                  </Link>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset">
-                    React
-                  </a>
+                  <Link to="/school" className="text-reset">
+                    Салбар сургууль
+                  </Link>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset">
-                    Vue
-                  </a>
-                </p>
-                <p>
-                  <a href="#!" className="text-reset">
-                    Laravel
-                  </a>
+                  <Link to="/login" className="text-reset">
+                    Нэвтрэх
+                  </Link>
                 </p>
               </div>
-              {/* Grid column */}
-              {/* Grid column */}
-              <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                {/* Links */}
-                <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
-                <p>
-                  <a href="#!" className="text-reset">
-                    Pricing
-                  </a>
-                </p>
-                <p>
-                  <a href="#!" className="text-reset">
-                    Settings
-                  </a>
-                </p>
-                <p>
-                  <a href="#!" className="text-reset">
-                    Orders
-                  </a>
-                </p>
-                <p>
-                  <a href="#!" className="text-reset">
-                    Help
-                  </a>
-                </p>
-              </div>
-              {/* Grid column */}
-              {/* Grid column */}
+
               <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                {/* Links */}
-                <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
+                <h6 className="text-uppercase fw-bold mb-4">Холбоо барих</h6>
                 <p>
-                  <i className="fas fa-home me-3" /> New York, NY 10012, US
+                  <i className="fas fa-home me-3" /> Монгол Улс Улаанбаатар хот.
+                  Баянзүрх дүүрэг, 4 дүгээр хороо, Б.Доржийн гудамж, Их Засаг
+                  цогцолбор
                 </p>
                 <p>
                   <i className="fas fa-envelope me-3" />
-                  info@example.com
+                  info@ikhzasag.edu.mn
                 </p>
                 <p>
-                  <i className="fas fa-phone me-3" /> + 01 234 567 88
-                </p>
-                <p>
-                  <i className="fas fa-print me-3" /> + 01 234 567 89
+                  <i className="fas fa-phone me-3" /> +976 70157768, 7015-7761,
+                  7015-7765
                 </p>
               </div>
-              {/* Grid column */}
             </div>
-            {/* Grid row */}
           </div>
         </section>
-        {/* Section: Links  */}
-        {/* Copyright */}
+
         <div
           className="text-center p-4"
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}
         >
-          © 2021 Copyright:
-          <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
-            MDBootstrap.com
+          &copy; {new Date().getFullYear()} :{' '}
+          <a href="https://ikhzasag.edu.mn">
+            ИХ ЗАСАГ ОЛОН УЛСЫН ИХ СУРГУУЛЬ ИЗОУИС
           </a>
         </div>
-        {/* Copyright */}
       </footer>
-      {/* Footer */}
     </>
   );
 }
-
-Footer.propTypes = {
-  default: PropTypes.bool,
-  fluid: PropTypes.bool,
-};
-
-export default Footer;
