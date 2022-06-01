@@ -4,7 +4,8 @@
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
+  gap: 1em;
 }
 
 .p-education {
@@ -52,7 +53,7 @@
 }
 
 .p-card {
-  width: 220px;
+  width: 321px;
   height: 321px;
   background: #fff;
   border-top-right-radius: 10px;
@@ -75,7 +76,7 @@
   box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
     0 24px 46px var(--box-shadow-color);
   background-color: rgba(1, 1, 1, 0.3);
-  background-image: url("https://apod.nasa.gov/apod/image/2110/LucyLaunchB_Kraus_2048.jpg");
+  background-image: url('https://apod.nasa.gov/apod/image/2110/LucyLaunchB_Kraus_2048.jpg');
 }
 
 .p-card:hover .overlay {
@@ -145,7 +146,7 @@
 }
 
 .circle:after {
-  content: "";
+  content: '';
   width: 118px;
   height: 118px;
   display: block;

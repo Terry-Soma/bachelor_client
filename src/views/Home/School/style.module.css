@@ -117,6 +117,9 @@
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 5rem;
 }
+section#school {
+  padding-inline: 1em;
+}
 
 .card {
   border-radius: 3px;
@@ -196,12 +199,11 @@
 }
 .card__footer {
   background-color: #f7f7f7;
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 2rem;
   border-top: 1px solid #f1f1f1;
   font-size: 1.4rem;
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   margin-top: auto;
 }
@@ -296,8 +298,16 @@
   }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 768px) {
   .card-container {
     grid-template-columns: auto;
+  }
+}
+@media screen and (max-width: 1200px) and (min-width: 992px) {
+  .card__footer {
+    padding: 2.5rem 0.5rem;
+  }
+  .card__footer .btn--small {
+    padding: 1.25rem 1.5rem !important ;
   }
 }

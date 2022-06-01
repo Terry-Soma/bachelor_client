@@ -41,7 +41,7 @@ export default function Menu() {
               setExpanded(expanded ? false : 'expanded');
             }}
           />
-          <Navbar.Collapse id="navbarScroll">
+          <Navbar.Collapse id="navbarScroll" className="mb-4">
             <Nav className="me-auto">
               <Link
                 className="nav-link p-3 fs-4 mx-4"

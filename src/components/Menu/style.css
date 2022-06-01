@@ -38,9 +38,9 @@ img {
   .navbar-expand-sm .navbar-collapse {
     display: flex !important;
     flex-basis: auto;
-    margin-bottom: 0;
+    margin-bottom: unset !important;
   }
-  .navbar-expand-sm .navbar-nav {
+  .navbar-expand-sm .navbar-nav:last-child {
     flex-direction: row;
     align-items: center;
   }
