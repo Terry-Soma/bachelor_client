@@ -12,12 +12,12 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
-  DropdownToggle
-} from "reactstrap";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import Contex from "../../context.js";
-import { useHistory } from "react-router-dom";
+  DropdownToggle,
+} from 'reactstrap';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Contex from '../../context.js';
+import { useHistory } from 'react-router-dom';
 
 export default function Med2() {
   let history = useHistory();
@@ -41,81 +41,81 @@ export default function Med2() {
 
   var load;
   var config4 = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/aimag",
+    method: 'get',
+    url: 'https://ikhzasag-backend.herokuapp.com/api/v1/aimag',
     headers: {
-      "Content-Type": "application/json"
-    }
+      'Content-Type': 'application/json',
+    },
   };
-  useEffect(() => {
-    var config3 = {
-      method: "get",
-      url: `https://ikhzasag-backend.herokuapp.com/api/v1/elsegch/${Contex.bt}/mergejil`,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
+  // useEffect(() => {
+  //   var config3 = {
+  //     method: "get",
+  //     url: `https://ikhzasag-backend.herokuapp.com/api/v1/elsegch/${Contex.bt}/mergejil`,
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     }
+  //   };
 
-    axios(config3)
-      .then(function (response) {
-        setData3(response.data.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  //   axios(config3)
+  //     .then(function (response) {
+  //       setData3(response.data.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
 
-    var config2 = {
-      method: "get",
-      url: "https://ikhzasag-backend.herokuapp.com/api/v1/elsegch",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
+  //   var config2 = {
+  //     method: "get",
+  //     url: "https://ikhzasag-backend.herokuapp.com/api/v1/elsegch",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     }
+  //   };
 
-    axios(config4)
-      .then(function (response) {
-        setData2(response.data.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    axios(config2)
-      .then(function (response) {
-        setData(response.data.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
+  //   axios(config4)
+  //     .then(function (response) {
+  //       setData2(response.data.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  //   axios(config2)
+  //     .then(function (response) {
+  //       setData(response.data.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }, []);
   var lol = true;
   const pattern =
-    "[фцужэнгшүзещкъпдлорхаөбыйячёсмитьвюФЦУЖЭНГШҮЗКЪПДЛОРХАӨБЫЙЯЧЁСМИТЬВЮ]+";
+    '[фцужэнгшүзещкъпдлорхаөбыйячёсмитьвюФЦУЖЭНГШҮЗКЪПДЛОРХАӨБЫЙЯЧЁСМИТЬВЮ]+';
   function send() {
     let dat = {
       burtgel_Id: Contex.bt,
       lname: lName,
       fname: fName,
-      img: "img.jps",
+      img: 'img.jps',
       rd: RegD,
       gerchilgee_dugaar: gerD,
       bichig_barimt: 1,
       utas: Cell,
       email: Email,
-      aimag_id: parseInt(val)
+      aimag_id: parseInt(val),
     };
     var config = {
-      method: "post",
-      url: "https://ikhzasag-backend.herokuapp.com/api/v1/elsegch",
+      method: 'post',
+      url: 'https://ikhzasag-backend.herokuapp.com/api/v1/elsegch',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
-      data: dat
+      data: dat,
     };
     load = true;
     axios(config)
       .then(function (response) {
         Contex.succ = true;
-        history.push("/");
+        history.push('/');
       })
       .catch(function (error) {
         console.log(error);
@@ -137,14 +137,14 @@ export default function Med2() {
           </CardHeader>
           <CardBody
             className="mx-auto"
-            style={{ backgroundColor: "rgb(75, 214, 202)" }}
+            style={{ backgroundColor: 'rgb(75, 214, 202)' }}
           >
             {data3.map((e) => {
               return (
                 <>
-                  {" "}
+                  {' '}
                   <hr />
-                  <Row className="Majors-unit" style={{ borderRadius: "1rem" }}>
+                  <Row className="Majors-unit" style={{ borderRadius: '1rem' }}>
                     {e.Mergejil.name}
                   </Row>
                 </>
@@ -156,11 +156,11 @@ export default function Med2() {
     );
     return (
       <>
-        {!data[1] ? "Loading" : ""}
+        {!data[1] ? 'Loading' : ''}
         <div>
           <Card className="Med_Card mx-auto">
             <CardHeader>
-              <CardTitle style={{ color: "white" }}>
+              <CardTitle style={{ color: 'white' }}>
                 Оруулсан хувийн мэдээлэл
               </CardTitle>
             </CardHeader>
@@ -241,7 +241,7 @@ export default function Med2() {
               })}
             </CardBody>
           </Card>
-          {!data3[0] ? "" : wot}
+          {!data3[0] ? '' : wot}
         </div>
       </>
     );
@@ -251,7 +251,7 @@ export default function Med2() {
     <>
       <Card className="Med_Card mx-auto">
         <CardHeader>
-          <CardTitle style={{ color: "white" }}>
+          <CardTitle style={{ color: 'white' }}>
             Хувийн мэдээлэлээ оруулна уу
           </CardTitle>
         </CardHeader>
@@ -372,7 +372,7 @@ export default function Med2() {
                 <Dropdown isOpen={isOpen} toggle={togg}>
                   <DropdownToggle caret>{val}</DropdownToggle>
                   <DropdownMenu
-                    style={{ maxHeight: "276px", overflow: "scroll" }}
+                    style={{ maxHeight: '276px', overflow: 'scroll' }}
                   >
                     {data2.map((e) => {
                       return (
@@ -383,7 +383,7 @@ export default function Med2() {
                             }}
                             dropDownValue={e.Id}
                           >
-                            {e.Id + ". " + e.ner}
+                            {e.Id + '. ' + e.ner}
                           </DropdownItem>
                         </>
                       );

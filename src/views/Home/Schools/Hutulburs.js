@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -9,14 +9,14 @@ import {
   Button,
   Input,
   InputGroupAddon,
-  Table
-} from "reactstrap";
-import Contex from "../../../context.js";
-import axios from "axios";
-import Select from "./Select.js";
+  Table,
+} from 'reactstrap';
+import Contex from '../../../context.js';
+import axios from 'axios';
+import Select from './Select.js';
 function School() {
   const sty = {
-    border: "1px solid black"
+    border: '1px solid black',
   };
   let location = useLocation();
 
@@ -24,7 +24,7 @@ function School() {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("https://ikhzasag-backend.herokuapp.com/api/v1/views/allinfo")
+      .get('https://ikhzasag-backend.herokuapp.com/api/v1/views/allinfo')
       .then(({ data }) => setInfo(data.data))
       .catch((err) => console.log(err));
     axios
@@ -34,8 +34,8 @@ function School() {
       .then(({ data }) => setInfo(data.data))
       .catch((err) => console.log(err));
   }, []);
-  const [q, setQ] = useState("");
-  const [searchParam] = useState(["h_name"]);
+  const [q, setQ] = useState('');
+  const [searchParam] = useState(['h_name']);
   const handleSearch = (event) => {
     setQ(event.target.value);
   };
@@ -61,10 +61,8 @@ function School() {
   const pot = <></>;
   return (
     <>
-      <Card styles={{ backgroundColor: "#f2f2f2" }}>
-        <CardHeader>
-          {Contex.succ == true ? "-----> Мэргэжил сонгох" : ""}
-        </CardHeader>
+      <Card styles={{ backgroundColor: '#f2f2f2' }}>
+        <CardHeader></CardHeader>
         <CardBody>
           <Table striped bordered hover responsive>
             <thead className="text-primary">
@@ -81,7 +79,7 @@ function School() {
                   <form>
                     <InputGroup className="no-border">
                       <Input
-                        style={{ minWidth: "100px" }}
+                        style={{ minWidth: '100px' }}
                         onChange={handleSearch}
                         placeholder="Search..."
                       />

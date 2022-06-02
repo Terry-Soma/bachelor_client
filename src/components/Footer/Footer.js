@@ -87,9 +87,7 @@ export default function Footer() {
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}
         >
           &copy; {new Date().getFullYear()} :{' '}
-          <a href="https://ikhzasag.edu.mn">
-            ИХ ЗАСАГ ОЛОН УЛСЫН ИХ СУРГУУЛЬ ИЗОУИС
-          </a>
+          <a href="https://ikhzasag.edu.mn">ИХ ЗАСАГ ОЛОН УЛСЫН ИХ СУРГУУЛЬ</a>
         </div>
       </footer>
     </>

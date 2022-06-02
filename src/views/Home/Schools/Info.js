@@ -33,27 +33,7 @@ export default function Info() {
   const handleSearch = (event) => {
     setQ(event.target.value);
   };
-  function search(items) {
-    return items.filter((item) => {
-      return searchParam.some((newItem) => {
-        return (
-          item[newItem].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
-        );
-      });
-    });
-  }
 
-  function sel(props) {
-    function Burt() {}
-    return (
-      <>
-        <Button onClick={Burt()}>Сонгох</Button>
-      </>
-    );
-  }
-
-  const pot = <></>;
-  console.log(info);
   return (
     <>
       <Card style={{ backgroundColor: '#f2f2f2' }}>
@@ -109,10 +89,6 @@ export default function Info() {
                       <td className="lead fs-5">{e.shalgalt}</td>
 
                       <td className="lead fs-5">{sh2}</td>
-                      <td>
-                        {' '}
-                        <Select dat={e.MergejilId} state={Contex.succ} />
-                      </td>
                     </tr>
                   );
                 })}

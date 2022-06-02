@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Card, CardBody } from 'reactstrap';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Button, Card, CardBody, CardText } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import axios from '../../utils/axios';
 import validator from 'validator';
-
+import ElsegchContext from '../../context/ElsegchContext';
 function Login() {
+  const Ectx = useContext(ElsegchContext);
   const [step, setstep] = useState(1);
   const [butDugaar, setBut] = useState('');
   const [userProfile, setUP] = useState({});
   const [error, setError] = useState('');
-
-  let history = useHistory();
-
   const nextStep = () => {
     setstep(step + 1);
   };
-  const prevStep = () => {
-    setstep(step - 1);
-  };
+
+  let history = useHistory();
+  useEffect(() => {
+    if (Ectx.state.burtgel_Id != null && Ectx.state.email != null) {
+      history.push('/info');
+    } else if (Ectx.state.burtgel_Id != null && Ectx.state.email == null) {
+      nextStep();
+    }
+  }, [Ectx.state.burtgel_Id]);
+
   const handleBut = (e) => {
     setBut(e.target.value);
   };
@@ -27,7 +32,10 @@ function Login() {
     // if (!response.error) {
     // }
   };
-  const handleLogin = async () => {
+  if (Ectx.state.butDugaar != null && Ectx.state.email != null)
+    history.push('/info');
+
+  const handleLogin = () => {
     if (validator.isEmpty(butDugaar)) {
       setError('БҮТ-ийн дугаараа оруулна уу');
       return;
@@ -37,18 +45,18 @@ function Login() {
       return;
     }
     setError(false);
-    const result = await axios.post('/elsegch/remember-me', { butDugaar });
-    if (result.data.butDugaar != null && result.data.butDugaar.email) {
-      history.push('/info');
-    }
-    nextStep();
+    Ectx.rememberMe(butDugaar);
+    // const result = await axios.post('/elsegch/remember-me', { butDugaar });
+    // console.log(Ectx.state);
   };
-  useEffect(() => {}, []);
 
   switch (step) {
     case 1:
       return (
         <div className="px-2" style={{ marginBottom: '30vh' }}>
+          {/* {Ectx.state.butDugaar == null &&
+            Ectx.state.email == null &&
+            nextStep()} */}
           <Card
             className="mx-auto"
             style={{ minWidth: '248px', maxWidth: '600px' }}
@@ -66,7 +74,14 @@ function Login() {
                   onChange={handleBut}
                   value={butDugaar}
                 />
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {error && (
+                  <p style={{ color: 'red', marginTop: '0.64rem' }}>{error}</p>
+                )}
+                {Ectx.state.error && (
+                  <p style={{ color: 'red', marginTop: '0.64rem' }}>
+                    {Ectx.state.error}
+                  </p>
+                )}
               </div>
               <Button onClick={handleLogin}>Нэвтрэх</Button>
             </CardBody>

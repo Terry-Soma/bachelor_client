@@ -1,14 +1,14 @@
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import css from './style.module.css';
-import React from 'react';
 
 const Services = (props) => {
   let history = useHistory();
-  function send1() {
+  function send2() {
     history.push('/info');
   }
-  function send2() {
-    history.push('/schools');
+  function send1() {
+    history.push('/school');
   }
   function send3() {
     history.push('/login');
