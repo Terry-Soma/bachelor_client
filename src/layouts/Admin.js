@@ -1,34 +1,34 @@
-import React from "react";
-import PerfectScrollbar from "perfect-scrollbar";
-import { useHistory, Route, Switch, useLocation } from "react-router-dom";
-import "perfect-scrollbar/css/perfect-scrollbar.css";
-import DemoNavbar from "../components/Navbars/DemoNavbar.js";
-import Sidebar from "../components/Sidebar/Sidebar.js";
-import ad from "../ad";
-import routes from "../adminRoutes.js";
+import React from 'react';
+import PerfectScrollbar from 'perfect-scrollbar';
+import { useHistory, Route, Switch, useLocation } from 'react-router-dom';
+import 'perfect-scrollbar/css/perfect-scrollbar.css';
+import DemoNavbar from '../components/Admin/DemoNavbar/index.js';
+import Sidebar from '../components/Sidebar/Sidebar.js';
+import ad from '../ad';
+import routes from '../adminRoutes.js';
 
 var ps;
 
 function Dashboard2(props) {
   let history = useHistory();
-  const [backgroundColor, setBackgroundColor] = React.useState("black");
-  const [activeColor, setActiveColor] = React.useState("info");
+  const [backgroundColor, setBackgroundColor] = React.useState('black');
+  const [activeColor, setActiveColor] = React.useState('info');
   const mainPanel = React.useRef();
   const location = useLocation();
 
   if (ad.st === false) {
-    history.push("/adminlogin");
+    history.push('/adminlogin');
   }
 
   React.useEffect(() => {
-    if (navigator.platform.indexOf("Win") > -1) {
+    if (navigator.platform.indexOf('Win') > -1) {
       ps = new PerfectScrollbar(mainPanel.current);
-      document.body.classList.toggle("perfect-scrollbar-on");
+      document.body.classList.toggle('perfect-scrollbar-on');
     }
     return function cleanup() {
-      if (navigator.platform.indexOf("Win") > -1) {
+      if (navigator.platform.indexOf('Win') > -1) {
         ps.destroy();
-        document.body.classList.toggle("perfect-scrollbar-on");
+        document.body.classList.toggle('perfect-scrollbar-on');
       }
     };
   });

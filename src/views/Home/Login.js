@@ -27,12 +27,25 @@ function Login() {
   const handleBut = (e) => {
     setBut(e.target.value);
   };
-  const responseGoogle = (response) => {
-    console.log(response);
-    // if (!response.error) {
-    // }
+  const responseGoogle = async (response) => {
+    console.log(response?.tokenId);
+    try {
+      const result = await axios.post('/elsegch/google', {
+        token: response?.tokenId,
+        burtgel_Id: Ectx.state.burtgel_Id,
+      });
+      console.log(result);
+
+      //
+    } catch (error) {
+      console.log(error);
+    }
   };
-  if (Ectx.state.butDugaar != null && Ectx.state.email != null)
+  const responseFailure = (response) => {
+    console.log(response);
+    setError(response.error);
+  };
+  if (Ectx.state.burtgel_Id != null && Ectx.state.email != null)
     history.push('/info');
 
   const handleLogin = () => {
@@ -46,17 +59,12 @@ function Login() {
     }
     setError(false);
     Ectx.rememberMe(butDugaar);
-    // const result = await axios.post('/elsegch/remember-me', { butDugaar });
-    // console.log(Ectx.state);
   };
 
   switch (step) {
     case 1:
       return (
         <div className="px-2" style={{ marginBottom: '30vh' }}>
-          {/* {Ectx.state.butDugaar == null &&
-            Ectx.state.email == null &&
-            nextStep()} */}
           <Card
             className="mx-auto"
             style={{ minWidth: '248px', maxWidth: '600px' }}
@@ -89,6 +97,7 @@ function Login() {
         </div>
       );
     case 2:
+      Ectx.email && history.push('/info');
       return (
         <div className="pt-3" style={{ marginBottom: '30vh' }}>
           <Card
@@ -104,8 +113,11 @@ function Login() {
                 clientId="488115572939-v60kr5j3rfqribiiftoklbkls4mei24a.apps.googleusercontent.com"
                 buttonText="Бүртгэлээ баталгаажуулах"
                 onSuccess={responseGoogle}
-                onFailure={responseGoogle}
+                onFailure={responseFailure}
               />
+              {error && (
+                <p style={{ color: 'red', marginTop: '0.64rem' }}>{error}</p>
+              )}
             </CardBody>
           </Card>
         </div>

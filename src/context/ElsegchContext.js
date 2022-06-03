@@ -34,12 +34,24 @@ export const ElsegchStore = (props) => {
         }
         setState({ ...state, ...result.data.butDugaar });
       })
-      .catch(({ response }) => {
-        setState({ ...state, error: response.data.message });
-        console.log(response.data.message);
+      .catch((err) => {
+        console.log(err.response);
+        // setState({ ...state, error: response.data.message });
       })
       .finally(console.log('finally'));
     // end loading
+  };
+  const googleOAuth = (token, butDugaar) => {
+    axios
+      .post('/elsegch/google', {
+        token,
+        burtgelId: butDugaar,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err))
+      .finally(/* set loading false */);
   };
   return (
     <ElsegchContext.Provider value={{ state, rememberMe }}>

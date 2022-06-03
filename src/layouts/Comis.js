@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from "react";
-import PerfectScrollbar from "perfect-scrollbar";
-import { useHistory, Route, Switch, useLocation } from "react-router-dom";
-import DemoNavbar from "../components/Navbars/DemoNavbar.js";
-import Sidebar from "../components/Sidebar/Sidebar.js";
-import cm from "../cm";
-import routes from "../routes.js";
-import axios from "axios";
-import "perfect-scrollbar/css/perfect-scrollbar.css";
+import React, { useState, useEffect } from 'react';
+import PerfectScrollbar from 'perfect-scrollbar';
+import { useHistory, Route, Switch, useLocation } from 'react-router-dom';
+import DemoNavbar from '../components/Admin/DemoNavbar/index.js';
+import Sidebar from '../components/Sidebar/Sidebar.js';
+import cm from '../cm';
+import routes from '../routes.js';
+import axios from 'axios';
+import 'perfect-scrollbar/css/perfect-scrollbar.css';
 var ps;
 function Dashboard(props) {
   let history = useHistory();
-  const [backgroundColor, setBackgroundColor] = React.useState("black");
-  const [activeColor, setActiveColor] = React.useState("info");
+  const [backgroundColor, setBackgroundColor] = React.useState('black');
+  const [activeColor, setActiveColor] = React.useState('info');
   const mainPanel = React.useRef();
   const location = useLocation();
 
   if (cm.st === false) {
-    history.push("/comislogin");
+    history.push('/comislogin');
   }
   const [data, setData] = useState([]);
 
   var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/users",
+    method: 'get',
+    url: 'https://ikhzasag-backend.herokuapp.com/api/v1/users',
     headers: {
-      "Content-Type": "application/json"
-    }
+      'Content-Type': 'application/json',
+    },
   };
 
   const [id, setId] = useState();
@@ -45,14 +45,14 @@ function Dashboard(props) {
     });
   }, []);
   React.useEffect(() => {
-    if (navigator.platform.indexOf("Win") > -1) {
+    if (navigator.platform.indexOf('Win') > -1) {
       ps = new PerfectScrollbar(mainPanel.current);
-      document.body.classList.toggle("perfect-scrollbar-on");
+      document.body.classList.toggle('perfect-scrollbar-on');
     }
     return function cleanup() {
-      if (navigator.platform.indexOf("Win") > -1) {
+      if (navigator.platform.indexOf('Win') > -1) {
         ps.destroy();
-        document.body.classList.toggle("perfect-scrollbar-on");
+        document.body.classList.toggle('perfect-scrollbar-on');
       }
     };
   });

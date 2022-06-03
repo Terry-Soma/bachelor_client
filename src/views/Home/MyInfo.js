@@ -19,7 +19,7 @@ import axios from 'axios';
 import Contex from '../../context.js';
 import { useHistory } from 'react-router-dom';
 
-export default function Med2() {
+export default function MInfo() {
   let history = useHistory();
   const [RegD, setRegD] = useState();
   const [fName, setFname] = useState();
