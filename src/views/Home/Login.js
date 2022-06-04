@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, Card, CardBody, CardText } from 'reactstrap';
+import { Spinner } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import axios from '../../utils/axios';
@@ -16,6 +17,9 @@ function Login() {
   };
 
   let history = useHistory();
+
+  if (Ectx.state.burtgel_Id != null && Ectx.state.email != null)
+    history.push('/info');
   useEffect(() => {
     if (Ectx.state.burtgel_Id != null && Ectx.state.email != null) {
       history.push('/info');
@@ -29,24 +33,13 @@ function Login() {
   };
   const responseGoogle = async (response) => {
     console.log(response?.tokenId);
-    try {
-      const result = await axios.post('/elsegch/google', {
-        token: response?.tokenId,
-        burtgel_Id: Ectx.state.burtgel_Id,
-      });
-      console.log(result);
 
-      //
-    } catch (error) {
-      console.log(error);
-    }
+    Ectx.googleOAuth(response?.tokenId, butDugaar);
   };
   const responseFailure = (response) => {
     console.log(response);
     setError(response.error);
   };
-  if (Ectx.state.burtgel_Id != null && Ectx.state.email != null)
-    history.push('/info');
 
   const handleLogin = () => {
     if (validator.isEmpty(butDugaar)) {
@@ -91,13 +84,19 @@ function Login() {
                   </p>
                 )}
               </div>
-              <Button onClick={handleLogin}>Нэвтрэх</Button>
+              <Button onClick={handleLogin}>
+                {Ectx.state.loading ? (
+                  <Spinner animation="border" variant="info" />
+                ) : (
+                  ' Нэвтрэх'
+                )}
+              </Button>
             </CardBody>
           </Card>
         </div>
       );
     case 2:
-      Ectx.email && history.push('/info');
+      Ectx.state.email && history.push('/info');
       return (
         <div className="pt-3" style={{ marginBottom: '30vh' }}>
           <Card
@@ -109,6 +108,11 @@ function Login() {
                 Та өөрийн хувийн э-мэйл хаягаараа нэвтрэн бүртгэлээ
                 баталгаажуулна уу
               </p>
+              {Ectx.state.loading && (
+                <div>
+                  <Spinner animation="border" variant="info" />
+                </div>
+              )}
               <GoogleLogin
                 clientId="488115572939-v60kr5j3rfqribiiftoklbkls4mei24a.apps.googleusercontent.com"
                 buttonText="Бүртгэлээ баталгаажуулах"

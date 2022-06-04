@@ -6,8 +6,8 @@ img {
 .bg-myNav {
   background-color: #f9f9f9;
   color: #090909;
-  z-index: 10;
-  moz-box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
+  z-index: 1000;
+  moz-box-shadow: 0 5px 5px rgba(112, 110, 110, 0.75);
   -webkit-box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
   box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
 }

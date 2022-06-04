@@ -17,7 +17,7 @@ export default function Menu() {
         collapseOnSelect
         bg="myNav"
         variant="light"
-        sticky="top"
+        fixed="top"
         expand="sm"
         expanded={expanded}
       >

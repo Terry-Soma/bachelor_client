@@ -9,7 +9,7 @@ import ComisLogin from '../views/Comis/ComisLogin';
 import Home from '../views/Home/Home.jsx';
 import Register3 from '../views/Comis/Register3';
 import Login from '../views/Home/Login';
-import MInfo from '../views/Home/MyInfo.js';
+import MInfo from '../views/Home/MyInfo.jsx';
 import School from '../views/Home/School';
 import Info from '../views/Home/Schools/Info';
 

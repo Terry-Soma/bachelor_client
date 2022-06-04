@@ -549,20 +549,14 @@ nav .btn {
 .p_info_row {
   margin: 1rem;
 }
-/*                    ffs                */
+
 .Med_Card {
   width: 60%;
   margin-top: 5rem;
   background-color: rgb(55, 194, 182);
   padding: 3rem;
 }
-.Med_Col_1 {
-  margin: 1rem;
-  background-color: rgb(75, 214, 202);
-  border-radius: 5px;
-  text-align: center;
-  color: #ffffff;
-}
+
 .Med_Col_2 {
   margin: 1rem;
   background-color: rgb(75, 214, 202);
@@ -687,13 +681,5 @@ nav .btn {
   }
   to {
     transform: rotate(359deg);
-  }
-}
-@media only screen and (max-width: 800px) {
-  .Med_Col_1 {
-    width: 100px;
-  }
-  .Med_Col_2 {
-    width: 100px;
   }
 }

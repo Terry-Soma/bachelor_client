@@ -3,24 +3,23 @@ import axios from '../utils/axios.js';
 const ElsegchContext = React.createContext();
 const initialState = {
   aimag_id: null,
-  bichig_barimt: false,
-  burtgel_Id: null,
-  email: null,
+  burtgel_Id: 1231,
+  email: 'sdfsdf',
   fname: null,
   lname: null,
-  gerchilgee_dugaar: null,
-  img: null,
-  komisId: null,
   rd: null,
   utas: null,
   error: null,
+  loading: false,
 };
 export const ElsegchStore = (props) => {
   const [state, setState] = useState(initialState);
 
   const rememberMe = (butDugaar) => {
-    //   loading'
-    console.log('loading');
+    setState({
+      ...state,
+      loading: true,
+    });
 
     axios
       .post('/elsegch/remember-me', { butDugaar })
@@ -30,31 +29,38 @@ export const ElsegchStore = (props) => {
             ...state,
             burtgel_Id: result.data.butDugaar,
           });
+
           return;
         }
-        setState({ ...state, ...result.data.butDugaar });
+        setState({ ...state, error: null, ...result.data.butDugaar });
       })
-      .catch((err) => {
-        console.log(err.response);
-        // setState({ ...state, error: response.data.message });
+      .catch(({ response }) => {
+        console.log(response.data.message);
+        setState({ ...state, error: response.data.message });
       })
-      .finally(console.log('finally'));
-    // end loading
+      .finally(() => setState({ ...state, loading: false }));
   };
   const googleOAuth = (token, butDugaar) => {
+    setState({
+      ...state,
+      loading: true,
+    });
     axios
       .post('/elsegch/google', {
         token,
-        burtgelId: butDugaar,
+        burtgel_Id: butDugaar,
       })
       .then((response) => {
-        console.log(response);
+        setState({ ...state, ...response.data.data });
       })
       .catch((err) => console.log(err))
-      .finally(/* set loading false */);
+      .finally(() => setState({ ...state, loading: false }));
   };
+  const insertMyInfo = () => {};
   return (
-    <ElsegchContext.Provider value={{ state, rememberMe }}>
+    <ElsegchContext.Provider
+      value={{ state, rememberMe, googleOAuth, insertMyInfo }}
+    >
       {props.children}
     </ElsegchContext.Provider>
   );
