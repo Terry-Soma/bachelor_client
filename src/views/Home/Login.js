@@ -103,12 +103,17 @@ const handleLogin = () => {
           >
             <CardBody style={{ textAlign: 'center' }} className="mx-auto p-5 ">
               <p className="lead text-secondary">
-                Та өөрийн хувийн э-мэйл хаягаараа нэвтрэн бүртгэлээ
+                Та өөрийн хувийн и-мэйл хаягаараа нэвтрэн бүртгэлээ
                 баталгаажуулна уу
               </p>
               {Ectx.state.loading && (
                 <div>
                   <Spinner animation="border" variant="info" />
+                </div>
+              )}
+               {Ectx.state.error && (
+                <div>
+                  <p style={{ color: 'red', marginTop: '0.64rem' }}>{Ectx.state.error}</p>
                 </div>
               )}
               <GoogleLogin

@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import css from './style.module.css';
 import logo from '../../../assets/img/icons.svg';
-import axios from 'axios';
+import axios from '../../../utils/axios.js';
 export default function School() {
-  var config = {
-    method: 'get',
-    url: 'http://localhost:1234/api/v1/school',
-    headers: {},
-  };
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/school')
+      .then(({ data })=> {
         setData(data.data);
       })
       .catch(function (error) {
@@ -43,7 +38,7 @@ export default function School() {
                         &nbsp;
                       </div>
                       <img
-                        src={e.img}
+                        src={`http://localhost:1234/uploads/${e.img}`}
                         alt={e.name}
                         className={css['card__picture-img']}
                       />

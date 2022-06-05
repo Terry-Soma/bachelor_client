@@ -11,7 +11,8 @@ const initialState = {
   utas: null,
   error: null,
   loading: false,
-  saving:false
+  saving:false,
+  too:5
 };
 export const ElsegchStore = (props) => {
   const [state, setState] = useState(initialState);
@@ -23,10 +24,14 @@ export const ElsegchStore = (props) => {
       .post('/elsegch/remember-me', { butDugaar })
       .then(result => {
         const data = result.data["butDugaar"];
-        console.log(data)
+        if(result.data["too"].length > 0){
+          data["too"] = 5 - result.data.too[0]?.count;
+          console.log(data["too"]);
+        }
         if (isNaN(data)) {
-          setState({ ...state, error: null,loading :false,...data })
+          setState({ ...state, error: null, loading : false, ...data });
           localStorage.setItem("burtgel_Id",data["burtgel_Id"]);
+          localStorage.setItem("email", data["email"]);
         }else{
           setState({
             ...state,
@@ -41,7 +46,7 @@ export const ElsegchStore = (props) => {
       });
   };
 
-  const googleOAuth = (token, butDugaar) => {
+const googleOAuth = (token, butDugaar) => {
     setState({
       ...state,
       loading: true,
@@ -64,16 +69,18 @@ export const ElsegchStore = (props) => {
         setState({
           ...state,
           loading:false,
-          error
+          error :"Уучлаарай таны и-мэйл манай вэб бүртгэлтэй байна..."
         });
       });
   };
 
-  const insertMyInfo = (burtgelId, ovog, ner, rd, utas) => {
+  const insertMyInfo = (burtgelId, email, ovog, ner, rd, utas) => {
+
     setState({...state, loading:true});
     const data = {
       lname:ovog,
       fname:ner,
+      email,
       rd,
       utas
     }
@@ -81,16 +88,51 @@ export const ElsegchStore = (props) => {
       .then(result=>{
         console.log(result.data)
         if(result.data.status =="success"){
-          setState({...state, loading : false, error:null, fname:ner,lname:ovog,utas, rd, saving:true })
+          setState({...state, loading : false, error:null, fname : ner,lname:ovog,utas, rd, saving:true })
         }
       }).catch(error=>{
         console.log(error)
-        setState({...state, error : error.message, loading : false,saving:false})
+        setState({...state, error : error.message, loading : false,saving : false})
       })
   };
+
+  const choose = (burtgel_Id, mergejilId, ognoo)=>{
+    setState({ ...state, loading : false});
+    const data = {
+      burtgel_Id,
+      mergejils:[
+          mergejilId
+      ],
+      ognoo 
+    };
+    axios.post('/elsegch/mergejil',data).then(result=>{
+      if(result.data.status=="success"){
+        setState({...state, too : state.too-1, saving : true});
+      }
+    }).catch(error=>setState({ ...state, error : error.message, loading : false, saving : false }));
+  };
+  const logout = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("burtgel_Id");
+    setState(initialState);
+  };
+
+  const autoLogin = (burtgel_Id, email)=>{
+    localStorage.setItem("burtgel_Id",burtgel_Id);
+    localStorage.setItem("email", email);
+
+    setState({
+      ...state,
+      loading: false,
+      error: null,
+      email,
+      burtgel_Id,
+    });
+  }
+
   return (
     <ElsegchContext.Provider
-      value={{ state, rememberMe, googleOAuth, insertMyInfo }}
+      value={{ state, rememberMe, googleOAuth, insertMyInfo, choose ,logout, autoLogin}}
     >
       {props.children}
     </ElsegchContext.Provider>

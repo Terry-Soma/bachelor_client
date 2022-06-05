@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext, useEffect  } from 'react';
 import { Route, Switch } from 'react-router';
-import { ElsegchStore } from '../context/ElsegchContext';
+import ElsegchContext from '../context/ElsegchContext';
 import Dashboard2 from '../layouts/Admin';
 import Dashboard from '../layouts/Comis';
 import Layout from '../layouts/Layout';
@@ -12,11 +12,26 @@ import Login from '../views/Home/Login';
 import MInfo from '../views/Home/MyInfo.jsx';
 import School from '../views/Home/School';
 import Info from '../views/Home/Schools/Info';
+import Logout from '../components/Logout';
 
 export default function App() {
+
+  const Ectx = useContext(ElsegchContext);
+
+  useEffect(()=>{
+    const burtgel_Id = localStorage.getItem("burtgel_Id");
+    const email= localStorage.getItem("email");
+
+    if(burtgel_Id && email){
+      Ectx.autoLogin(burtgel_Id, email)
+    }
+
+  },[])
+
+
+
   return (
     <div>
-      <ElsegchStore>
         <Switch>
           <Route exact path="/">
             <Layout>
@@ -43,8 +58,12 @@ export default function App() {
               <MInfo />
             </Layout>
           </Route>
+          <Route path="/logout">
+            <Layout>
+              <Logout />
+            </Layout>
+          </Route>
         </Switch>
-      </ElsegchStore>
       <Switch>
         <Route path="/comis" render={(props) => <Dashboard2 {...props} />} />
         <Route path="/Admin" render={(props) => <Dashboard {...props} />} />

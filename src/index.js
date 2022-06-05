@@ -7,10 +7,13 @@ import './assets/demo/demo.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import App from './App/index.js';
+import { ElsegchStore } from './context/ElsegchContext';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <ElsegchStore>
+      <App />
+    </ElsegchStore>
   </BrowserRouter>,
   document.getElementById('root')
 );
