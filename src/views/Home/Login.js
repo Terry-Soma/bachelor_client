@@ -1,17 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, Card, CardBody, CardText } from 'reactstrap';
+import { Button, Card, CardBody } from 'reactstrap';
 import { Spinner } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
-import axios from '../../utils/axios';
 import validator from 'validator';
 import ElsegchContext from '../../context/ElsegchContext';
 function Login() {
-  const Ectx = useContext(ElsegchContext);
   const [step, setstep] = useState(1);
   const [butDugaar, setBut] = useState('');
-  const [userProfile, setUP] = useState({});
   const [error, setError] = useState('');
+  const Ectx = useContext(ElsegchContext);
   const nextStep = () => {
     setstep(step + 1);
   };
@@ -31,17 +29,17 @@ function Login() {
   const handleBut = (e) => {
     setBut(e.target.value);
   };
-  const responseGoogle = async (response) => {
+  const responseGoogle =  (response) => {
     console.log(response?.tokenId);
-
-    Ectx.googleOAuth(response?.tokenId, butDugaar);
+    
+    Ectx.googleOAuth(response?.tokenId, Ectx.state.burtgel_Id);
   };
   const responseFailure = (response) => {
     console.log(response);
     setError(response.error);
   };
 
-  const handleLogin = () => {
+const handleLogin = () => {
     if (validator.isEmpty(butDugaar)) {
       setError('БҮТ-ийн дугаараа оруулна уу');
       return;

@@ -5,6 +5,7 @@ import { Card, Button, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import ElsegchContext from '../../context/ElsegchContext.js';
 import validator from 'validator';
+import {toast, ToastContainer} from 'react-toastify';
 export default function MInfo() {
   const Ectx = useContext(ElsegchContext);
 
@@ -12,6 +13,12 @@ export default function MInfo() {
 
   if (Ectx.state.burtgel_Id === null && Ectx.state.email === null)
     history.push('/login');
+
+  useEffect(()=>{
+    if(Ectx.state.saving)
+      toast.success("Амжилттай хадгаллаа.");
+  },[Ectx.state.saving, Ectx.state.fname, Ectx.state.lname, Ectx.state.utas, Ectx.state.rd])  
+
   const [rd, setRd] = useState('');
   const [fName, setFname] = useState('');
   const [lName, setLname] = useState('');
@@ -21,7 +28,7 @@ export default function MInfo() {
     ner: null,
     rd: null,
     utas: null,
-    main: null,
+    main: "",
   });
   const handleOvog = (e) => {
     if (validator.isInt(e.target.value)) {
@@ -101,7 +108,7 @@ export default function MInfo() {
     ) {
       setError({
         ...error,
-        main: 'Таны оруулсан өгөгдөл алдаатай байна',
+        main: 'Таны оруулсан өгөгдөл хоосон эсвэл алдаатай байна',
       });
       return;
     }
@@ -110,11 +117,23 @@ export default function MInfo() {
       main: '',
     });
 
-    Ectx.insertMyinfo(lName, fName, rd, utas);
+    Ectx.insertMyInfo(Ectx.state.burtgel_Id, lName, fName, rd, utas);
   };
   return (
     <div className="container">
       <Card>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
+        <ToastContainer />
         <Card.Header as="h5">Хувийн мэдээлэл</Card.Header>
         <Card.Title as="p" className="lead alert alert-info p2">
           {' '}
@@ -130,6 +149,7 @@ export default function MInfo() {
           {Ectx.state.error && (
             <div class="alert alert-danger" role="alert">
               {Ectx.state.error}
+              {JSON.stringify(Ectx.state,4,4)}
             </div>
           )}
           <form onSubmit={handleBurtgel} className="form-floating">

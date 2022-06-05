@@ -1,23 +1,24 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import axios from './utils/axios.js';
+import { useState, useEffect } from 'react';
 
 function Data() {
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/shalguur",
-    headers: {}
-  };
+  // var config = {
+  //   method: 'get',
+  //   url: 'https://ikhzasag-backend.herokuapp.com/api/v1/shalguur',
+  //   headers: {},
+  // };
   const [Shalguur, setShalguur] = useState([]);
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios
+      .get('/shalguur')
+      .then(({ data }) => {
         setShalguur(data.data);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
   module.exports = {
-    Shalguur
+    Shalguur,
   };
 }

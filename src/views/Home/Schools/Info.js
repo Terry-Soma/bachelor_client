@@ -2,28 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Card,
-  CardHeader,
   CardBody,
   InputGroup,
-  Button,
   Input,
   InputGroupAddon,
   Table,
 } from 'reactstrap';
-import Contex from '../../../context.js';
-import axios from 'axios';
-import Select from './Select.js';
+import axios from '../../../utils/axios.js';
 export default function Info() {
-  const s = {
-    border: '1px solid black',
-  };
   let location = useLocation();
 
   const [info, setInfo] = useState([]);
 
   useEffect(() => {
     axios
-      .get('https://ikhzasag-backend.herokuapp.com/api/v1/views/allinfo')
+      .get('/views/allinfo')
       .then(({ data }) => setInfo(data.data))
       .catch((err) => console.log(err));
   }, []);

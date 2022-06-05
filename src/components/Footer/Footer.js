@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-
+import ElsegchContext from '../../context/ElsegchContext';
 export default function Footer() {
+  const Ectx = useContext(ElsegchContext);
   return (
     <>
       <footer className="text-center text-lg-start bg-light text-muted mt-5">
@@ -55,11 +56,26 @@ export default function Footer() {
                     Салбар сургууль
                   </Link>
                 </p>
-                <p>
-                  <Link to="/login" className="text-reset">
-                    Нэвтрэх
-                  </Link>
-                </p>
+                {Ectx.state.burtgel_Id && Ectx.state.email ? (
+                  <>
+                    <p>
+                      <Link className="text-reset" to="/my-info">
+                        Хувийн мэдээлэл
+                      </Link>
+                    </p>
+                    <p>
+                      <Link className="text-reset" to="/logout">
+                        Гарах
+                      </Link>
+                    </p>
+                  </>
+                ) : (
+                  <p>
+                    <Link className="text-reset" to="/login">
+                      Бүртгүүлэх
+                    </Link>
+                  </p>
+                )}
               </div>
 
               <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
@@ -84,7 +100,7 @@ export default function Footer() {
 
         <div
           className="text-center p-4"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}
+          style={{background:"rgba(0, 0, 0, 0.05)"}}
         >
           &copy; {new Date().getFullYear()} :{' '}
           <a href="https://ikhzasag.edu.mn">ИХ ЗАСАГ ОЛОН УЛСЫН ИХ СУРГУУЛЬ</a>

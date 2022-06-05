@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import MenuItem from '../MenuItem';
 import './style.css';
-import Contex from '../../context';
 import Logo from '../../assets/img/logo.png';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -55,7 +53,7 @@ export default function Menu() {
                 Салбар сургууль
               </Link>
             </Nav>
-            {Ectx.state.burtgel_Id && Ectx.state.email ? (
+            {(Ectx.state.burtgel_Id && Ectx.state.email) ? (
               <Nav>
                 <Link
                   className="fs-4  p-3 mainbtn"

@@ -6,7 +6,7 @@ import axios from 'axios';
 export default function School() {
   var config = {
     method: 'get',
-    url: 'https://ikhzasag-backend.herokuapp.com/api/v1/school',
+    url: 'http://localhost:1234/api/v1/school',
     headers: {},
   };
   const [data, setData] = useState([]);
