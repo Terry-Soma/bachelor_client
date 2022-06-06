@@ -10,6 +10,7 @@ import {
 import axios from '../../../utils/axios.js';
 import ElsegchContext from '../../../context/ElsegchContext.js';
 import {toast, ToastContainer} from 'react-toastify';
+import css from '../style.module.css';
 export default function Info() {
   const Ectx = useContext(ElsegchContext);
   const [info, setInfo] = useState([]);
@@ -105,6 +106,7 @@ export default function Info() {
                     return;
                   }
                   return (
+                    
                     <tr key={e.MergejilId}>
                     {Ectx.state.burtgel_Id && Ectx.state.email &&
                     (
@@ -115,19 +117,24 @@ export default function Info() {
                     </td>
                     )
                     }
-                      <a href={e.link} target='_blank'>
-                      <td className="lead fs-5">{e.s_name}</td>
-                      <td className="lead fs-5">{e.h_name}</td>
+                      <td className="lead fs-5">
+                        <a href={e.link} target="_blank">{e.s_name} </a></td>
+                      <td className="lead fs-5">
+                      <a href={e.link} target="_blank">{e.h_name} </a></td>
                       <td className="lead fs-5">{e.m_name}</td>
                       <td>
                         <div className="mergeshil lead fs-5">{e.mergeshil}</div>
                       </td>
-                      <td className="lead fs-5">{e.bosgo_onoo}</td>
-                      <td className="lead fs-5">{e.shalgalt}</td>
-                      </a>
+                      <td className="lead fs-5">
+                      <a href={e.link} target="_blank">{e.bosgo_onoo}</a></td>
+                      <td className="lead fs-5">
+                        <a href={e.link} target="_blank">{e.shalgalt}</a></td>
+                      <td className="lead fs-5">
+                      <a href={e.link} target="_blank">{sh2}</a></td>
                     </tr>
                   );
                 })}
+
             </tbody>
           </Table>
         </CardBody>
