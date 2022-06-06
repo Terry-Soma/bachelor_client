@@ -38,7 +38,7 @@ export default function School() {
                         &nbsp;
                       </div>
                       <img
-                        src={`http://localhost:1234/uploads/${e.img}`}
+                        src={`https://elselt.ikhzasag.edu.mn/uploads/${e.img}`}
                         alt={e.name}
                         className={css['card__picture-img']}
                       />

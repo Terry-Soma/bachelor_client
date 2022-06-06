@@ -82,7 +82,7 @@ export default function Info() {
               (
                 <th className="text-right"></th>
               )
-              }
+              } 
                 <th className="lead fs-5 text-center">Сургуулийн нэр</th>
                 <th className="lead fs-5 text-center">Хөтөлбөрийн нэр</th>
                 <th className="lead fs-5 text-center">Мэргэжил</th>
@@ -115,6 +115,7 @@ export default function Info() {
                     </td>
                     )
                     }
+                      <a href={e.link} target='_blank'>
                       <td className="lead fs-5">{e.s_name}</td>
                       <td className="lead fs-5">{e.h_name}</td>
                       <td className="lead fs-5">{e.m_name}</td>
@@ -123,7 +124,7 @@ export default function Info() {
                       </td>
                       <td className="lead fs-5">{e.bosgo_onoo}</td>
                       <td className="lead fs-5">{e.shalgalt}</td>
-                      <td className="lead fs-5">{sh2}</td>
+                      </a>
                     </tr>
                   );
                 })}
