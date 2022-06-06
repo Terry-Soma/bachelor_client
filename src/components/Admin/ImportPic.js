@@ -11,21 +11,16 @@ import {
   DropdownToggle
 } from "reactstrap";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 function ImportPic() {
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/school",
-    headers: {}
-  };
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/school')
+      .then(({ data })=> {
         console.log(data.data);
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
   }, []);

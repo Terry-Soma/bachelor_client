@@ -11,7 +11,7 @@ import {
   Form,
   Input
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 
 function TableHutEdit(props) {
   const [namee, setName] = useState();
@@ -20,19 +20,12 @@ function TableHutEdit(props) {
   const [surId, setSurId] = useState();
 
   function Ed() {
-    var config = {
-      method: "patch",
-      url:
-        "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur/" +
-        props.data.Id,
-      headers: {},
-      data: { name: namee, s_time: time, bosgo_onoo: bosgo, schoolId: surId }
-    };
-    axios(config)
-      .then(function (response) {
+
+    axios.patch('/hutulbur/' + props.data.Id, { name: namee, s_time: time, bosgo_onoo: bosgo, schoolId: surId })
+      .then((response)=> {
         console.log(JSON.stringify(response.data));
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }

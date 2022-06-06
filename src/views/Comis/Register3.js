@@ -18,24 +18,8 @@ import {
   InputGroupText,
   Table
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 function Register3() {
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/mergejil",
-    headers: {}
-  };
-  var Schools = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/school",
-    headers: {}
-  };
-  var Hutulbur = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur",
-    headers: {}
-  };
-
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
@@ -43,28 +27,25 @@ function Register3() {
   const [drop2, Toggle2] = useState(false);
 
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
-        console.log(data.data);
+    axios.get('/mergejil')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
-    axios(Hutulbur)
-      .then(function ({ data }) {
-        console.log(data.data);
+    axios.get('/hutulbur')
+      .then(({ data })=> {
         setData3(data.data);
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
-    axios(Schools)
-      .then(function ({ data }) {
-        console.log(data.data);
+    axios.get('/school')
+      .then(({ data })=> {
         setData2(data.data);
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
   }, []);

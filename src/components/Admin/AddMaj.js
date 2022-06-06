@@ -17,38 +17,29 @@ import {
 import { useState, useEffect } from "react";
 import { useHistory, Switch, Route } from "react-router-dom";
 import AddMaj2 from "./AddMaj2";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 
 function AddMaj() {
   const [isOpen, Open] = useState(false);
   function togg() {
     Open(!isOpen);
   }
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur",
-    headers: {}
-  };
-  var Shalguur = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/shalguur",
-    headers: {}
-  };
+
   const [data, setData] = useState([]);
   const [Class, setShalguur] = useState([]);
   useEffect(() => {
-    axios(Shalguur)
-      .then(function ({ data }) {
+    axios.get('/shalguur')
+      .then(({ data })=> {
         setShalguur(data.data);
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/hutulbur')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }, []);

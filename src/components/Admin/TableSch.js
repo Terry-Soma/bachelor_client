@@ -12,23 +12,18 @@ import {
   CardTitle,
   Col
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 import TableSch2 from "./TableSch2";
 import TableSch3 from "./TableSch3";
 
 function TableSch() {
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/school",
-    headers: {}
-  };
   const [data, setData] = useState([]);
   const [val, setVal] = useState([]);
   const [val2, setVal2] = useState([]);
   const [showEdit, setEdit] = useState(false);
   const [showRemove, setRemove] = useState(false);
   useEffect(() => {
-    axios(config)
+    axios.get('/school')
       .then(function ({ data }) {
         setData(data.data);
       })

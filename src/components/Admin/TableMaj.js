@@ -12,38 +12,27 @@ import {
   CardTitle,
   Col
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 import TableMajDelete from "./TableMajDelete.js";
 import TableMajEdit from "./TableMajEdit.js";
 
 function TableMaj() {
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/mergejil",
-    headers: {}
-  };
-  const [data, setData] = useState([]);
+   const [data, setData] = useState([]);
   const [Hut, setHut] = useState([]);
   const [val, setVal] = useState([]);
   const [val2, setVal2] = useState([]);
   const [showEdit, setEdit] = useState(false);
   const [showRemove, setRemove] = useState(false);
 
-  var hutting = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur",
-    headers: {}
-  };
-
   useEffect(() => {
-    axios(hutting).then(function ({ data }) {
+    axios.get('/hutulbur').then(({ data }) =>{
       setHut(data.data);
     });
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/mergejil')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }, []);

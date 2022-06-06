@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { MDBDataTable } from "mdbreact";
 import { Card, CardHeader, CardBody, CardTitle, Col } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 function TableComis() {
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/users",
-    headers: {}
-  };
+  
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/users')
+      .then(({ data }) => {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }, []);

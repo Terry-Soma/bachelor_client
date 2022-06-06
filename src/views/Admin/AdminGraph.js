@@ -13,48 +13,34 @@ import Grap1 from "./variables/AdminCharts/Grap_1";
 import Grap2 from "./variables/AdminCharts/Grap_2";
 import Grap3 from "./variables/AdminCharts/Grap_3";
 import Grap4 from "./variables/AdminCharts/Grap_4";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 function AdminDur() {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const [val, setVal] = useState();
   const [togg, setTogg] = useState(false);
-  var config1 = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/school",
-    headers: {}
-  };
-  var config2 = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur",
-    headers: {}
-  };
-  var config3 = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur",
-    headers: {}
-  };
+
   useEffect(() => {
-    axios(config1)
-      .then(function ({ data }) {
+    axios.get('school')
+      .then(({ data }) =>{
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
-    axios(config2)
-      .then(function ({ data }) {
+    axios.get('/hutulbur')
+      .then(({ data }) =>{
         setData2(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
-    axios(config3)
-      .then(function ({ data }) {
+    axios.get('/hutulbur')
+      .then(({ data }) =>{
         setData3(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }, []);

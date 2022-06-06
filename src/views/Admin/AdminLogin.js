@@ -1,60 +1,50 @@
-import { Button, Card, Row, Col } from "react-bootstrap";
-// import Pass_I from "componenet/ui/inputs/Pass_I";
-// import Email_I from "./component/ui/inputs/Email_I";
+import { Card, Row, Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import FacebookLogin from "react-facebook-login";
 import ad from "../../ad";
 
-function AdminLogin() {
+const AdminLogin = () => {
   let history = useHistory();
 
-  function to_1() {}
 
-  const responseFacebook = (response) => {
-    if (!response.status) {
-      ad.st = true;
-      history.push("/admin/home");
-    }
-  };
+  // const responseFacebook = (response) => {
+  //   if (!response.status) {
+  //     ad.st = true;
+  //     history.push("/admin/home");
+  //   }
+  // };
 
   const responseGoogle = (response) => {
+
+    ad.st = true;
+    console.log("first")
+    history.push("/admin/home");
     if (!response.error) {
-      ad.st = true;
-      history.push("/admin/home");
+     
     }
   };
 
   return (
-    <div className="mt-5 mt-5">
-      <form onSubmit={to_1}>
-        <Card className="mx-auto Card" bg="light">
-          <Card.Title
-            className="text-light text-center Puk PadTop"
-            style={{ height: "5rem" }}
+    <div className="container my-5 w-50">
+        <Card className="mx-auto p-5 d-flex justify-content-center align-items-center" bg="light">
+        <Card.Title as="p"
+            className="text-center lead fs-4"
           >
-            Login
+            Админ | Сургалтын алба 
           </Card.Title>
-          <div
-            style={{
-              padding: "2rem"
-            }}
-          >
             <Row>
               <Col>
                 <GoogleLogin
-                  style={{ height: "300px" }}
+                  className="py-2"
                   clientId="488115572939-v60kr5j3rfqribiiftoklbkls4mei24a.apps.googleusercontent.com"
-                  buttonText="LOGIN WITH GOOGLE"
+                  buttonText="Google Account-аар нэвтрэх"
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}
-                  //   onClick={}
                 />
               </Col>
             </Row>
-          </div>
         </Card>
-      </form>
     </div>
   );
 }

@@ -12,7 +12,7 @@ import {
   DropdownToggle
 } from "reactstrap";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 import Contex from "../../context.js";
 import { useHistory } from "react-router-dom";
 import cm from "../../cm";
@@ -28,11 +28,11 @@ export default function Regist() {
   };
 
   useEffect(() => {
-    axios(shalguur)
-      .then(function ({ data }) {
+    axios.get('/shalguur')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }, []);
@@ -75,22 +75,12 @@ export default function Regist() {
       email: Email,
       aimag_id: cm.aimag
     };
-    var config = {
-      method: "post",
-      url: "https://ikhzasag-backend.herokuapp.com/api/v1/elsegch",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      data: dat
-    };
-    console.log(dat);
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
+    axios.post('/elsegch',dat)
+      .then((response)=> {
         Contex.succ = true;
         history.push("/comis/home");
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
   }

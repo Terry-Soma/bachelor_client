@@ -11,7 +11,7 @@ import {
   Form,
   Input
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 
 function TableSch3(props) {
   const [namee, setName] = useState();
@@ -19,19 +19,11 @@ function TableSch3(props) {
   const [addr, setAddr] = useState();
 
   function Ed() {
-    var config = {
-      method: "patch",
-      url:
-        "https://ikhzasag-backend.herokuapp.com/api/v1/school/" + props.data.Id,
-      headers: {},
-      data: { name: namee, address: addr, description: desc }
-    };
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
+    axios.patch('/school/'+props.data.Id,
+    { name: namee, address: addr, description: desc } )
+      .then((response) => {
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) =>{
       });
   }
   return (

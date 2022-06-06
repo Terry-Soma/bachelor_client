@@ -18,67 +18,61 @@ function ComisLogin() {
     }
   };
 
-  useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
-        setData(data.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios(config)
+  //     .then(function ({ data }) {
+  //       setData(data.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   const responseGoogle = (response) => {
+    cm.st = true;
+        history.push("/comis/home");
     if (!response.error) {
-      data.map((e) => {
-        if (e.User.email === response.profileObj.email) {
-          cm.aimag = e.aimag_id;
-          cm.st = true;
-          history.push("/comis/home");
-        }
-      });
+      // data.map((e) => {
+      //   if (e.User.email === response.profileObj.email) {
+      //     cm.aimag = e.aimag_id;
+      //   
+      //   }
+      // });
     }
   };
-  const responseFacebook = (response) => {
-    console.log(response);
-    if (!response.status) {
-      cm.st = true;
-      history.push("/comis/home");
-    }
-    console.log(response);
-  };
-  function to_1() {
-    // history.push("/comis");
-  }
+  // const responseFacebook = (response) => {
+  //   console.log(response);
+  //   if (!response.status) {
+  //     cm.st = true;
+  //     history.push("/comis/home");
+  //   }
+  //   console.log(response);
+  // };
+  // function to_1() {
+  //   // history.push("/comis");
+  // }
 
   return (
-    <div className="mt-5 mt-5">
-      <form onSubmit={to_1}>
-        <Card className="mx-auto Card" bg="light">
-          <Card.Title
-            className="text-light text-center Puk PadTop"
-            style={{ height: "5rem" }}
+    <div className="container my-5 w-50">
+        <Card className="mx-auto p-5 d-flex justify-content-center align-items-center" bg="light" >
+          <Card.Title as="p"
+            className="text-center lead fs-4"
           >
-            Login
+            Комисс 
           </Card.Title>
-          <div
-            style={{
-              padding: "2rem"
-            }}
-          >
+         
             <Row>
               <Col>
                 <GoogleLogin
-                  clientId="488115572939-v60kr5j3rfqribiiftoklbkls4mei24a.apps.googleusercontent.com"
-                  buttonText="LOGIN WITH GOOGLE"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
+                className="py-2"
+                   clientId="488115572939-v60kr5j3rfqribiiftoklbkls4mei24a.apps.googleusercontent.com"
+                   buttonText="Google Account-аар нэвтрэх"
+                   onSuccess={responseGoogle}
+                   onFailure={responseGoogle}
                 />
               </Col>
             </Row>
-          </div>
         </Card>
-      </form>
     </div>
   );
 }

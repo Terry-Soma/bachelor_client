@@ -7,14 +7,11 @@ import {
   CardBody,
   CardTitle,
   Table,
-  Button,
   Col,
   InputGroup,
-  InputGroupText,
-  InputGroupAddon,
   Input
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 import cm from "../../cm";
 
 function Confirm(props) {
@@ -27,11 +24,11 @@ function Confirm(props) {
   };
 
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/elsegch')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
   }, []);

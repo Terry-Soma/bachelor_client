@@ -12,17 +12,11 @@ import {
   CardTitle,
   Col
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 import TableHutDelete from "./TableHutDelete";
 import TableHutEdit from "./TableHutEdit";
 
 function TableHut() {
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur",
-    headers: {}
-  };
-
   const [data, setData] = useState([]);
   const [val, setVal] = useState([]);
   const [val2, setVal2] = useState([]);
@@ -30,11 +24,11 @@ function TableHut() {
   const [showRemove, setRemove] = useState(false);
 
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/hutulbur')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }, []);

@@ -65,8 +65,8 @@ export default function App() {
           </Route>
         </Switch>
       <Switch>
-        <Route path="/comis" render={(props) => <Dashboard2 {...props} />} />
-        <Route path="/Admin" render={(props) => <Dashboard {...props} />} />
+        <Route path="/comis" render={(props) => <Dashboard  {...props} />} />
+        <Route path="/Admin" render={(props) => <Dashboard2 {...props} />} />
         <Route path="/comis/2">
           <Register3 />
           {/* <Link to="/comis/add">Back</Link> */}

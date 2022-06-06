@@ -9,7 +9,7 @@ import {
   Input,
   Button
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 import SelectMaj from "./SelectMaj";
 import cm from "../../cm";
 function Home() {
@@ -22,11 +22,11 @@ function Home() {
   };
 
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/elsegch')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }, []);

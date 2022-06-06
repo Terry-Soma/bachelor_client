@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import axios from "axios";
+import axios from "../../../../utils/axios.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-var config = {
-  method: "get",
-  url: "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur",
-  headers: {}
-};
 
 function Grap_3(props) {
   const [data1, setData] = useState([]);
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/hutulbur')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
   }, []);

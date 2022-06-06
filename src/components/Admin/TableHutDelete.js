@@ -10,22 +10,15 @@ import {
   FormGroup,
   Form
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 
 function TableHutDelete(props) {
-  var config = {
-    method: "delete",
-    url:
-      "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur/" + props.data.Id,
-    headers: {}
-  };
   function Del() {
-    console.log(config.url);
-    axios(config)
-      .then(function (response) {
+    axios.delete('/hutulbur/' + props.data.Id)
+      .then((response)=> {
         console.log(JSON.stringify(response.data));
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }

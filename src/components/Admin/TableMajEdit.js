@@ -11,7 +11,7 @@ import {
   Form,
   Input
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 
 function TableMajEdit(props) {
   const [namee, setName] = useState();
@@ -19,19 +19,12 @@ function TableMajEdit(props) {
   const [hutId, setHutId] = useState();
 
   function Ed() {
-    var config = {
-      method: "patch",
-      url:
-        "https://ikhzasag-backend.herokuapp.com/api/v1/mergejil/" +
-        props.data.Id,
-      headers: {},
-      data: { name: namee, mergeshil: mergeshil, hutulburId: hutId }
-    };
-    axios(config)
-      .then(function (response) {
+    axios.patch('/mergejil/'+props.data.Id,
+    { name: namee, mergeshil: mergeshil, hutulburId: hutId } )
+      .then((response)=> {
         console.log(JSON.stringify(response.data));
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }

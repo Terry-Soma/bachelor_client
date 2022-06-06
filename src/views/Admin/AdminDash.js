@@ -18,7 +18,7 @@ import {
   dashboardNASDAQChart
 } from "./variables/charts.js";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 
 function AdminDash() {
   // burtgel/get-count
@@ -28,15 +28,15 @@ function AdminDash() {
 
   useEffect(() => {
     axios
-      .get("https://ikhzasag-backend.herokuapp.com/api/v1/elsegch")
+      .get("/elsegch")
       .then(({ data }) => setData(data.data))
       .catch((err) => console.log(err));
     axios
-      .get("https://ikhzasag-backend.herokuapp.com/api/v1/burtgel/get-count")
+      .get("/burtgel/get-count")
       .then(({ data }) => setSur(data.sdata))
       .catch((err) => console.log(err));
     axios
-      .get("https://ikhzasag-backend.herokuapp.com/api/v1/burtgel/get-count")
+      .get("/burtgel/get-count")
       .then(({ data }) => setMer(data.data))
       .catch((err) => console.log(err));
   }, []);
@@ -45,18 +45,15 @@ function AdminDash() {
   const handleSearch = (event) => {
     setQ(event.target.value);
   };
-  function search(items) {
-    return items.filter((item) => {
-      // if (item.rd === "UU21222222") {
-      //   return item;
-      // }
-      return searchParam.some((newItem) => {
-        return (
-          item[newItem].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
-        );
-      });
-    });
-  }
+  // function search(items) {
+  //   return items.filter((item) => {
+  //     return searchParam.some((newItem) => {
+  //       return (
+  //         item[newItem].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
+  //       );
+  //     });
+  //   });
+  // }
 
   let newDate = new Date();
   let date = newDate.getDate();
@@ -81,7 +78,7 @@ function AdminDash() {
           </tr>
         </thead>
         <tbody>
-          {search(data).map((e) => {
+          {data.map((e) => {
             return (
               <>
                 <tr>

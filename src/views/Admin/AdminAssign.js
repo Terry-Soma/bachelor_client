@@ -19,24 +19,8 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 export default function AdminAssign() {
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/users",
-    headers: {}
-  };
-  var sAlba = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/s-alba",
-    headers: {}
-  };
-  var aimag = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/aimag",
-    headers: {}
-  };
-
   const [isOpen, Open] = useState(false);
   function togg() {
     Open(!isOpen);
@@ -52,25 +36,25 @@ export default function AdminAssign() {
   const [data3, setData3] = useState([]);
 
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/users')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
-    axios(sAlba)
-      .then(function ({ data }) {
+    axios.get('/s-alba')
+      .then(({ data }) =>{
         setData2(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
-    axios(aimag)
-      .then(function ({ data }) {
+    axios.get('/aimag')
+      .then(({ data }) =>{
         setData3(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }, []);
@@ -110,16 +94,7 @@ export default function AdminAssign() {
 
     let dat = { userId: val.Id, s_alba_id: val2, aimag_id: val3, ognoo: now };
 
-    var config = {
-      method: "post",
-      url: "https://ikhzasag-backend.herokuapp.com/api/v1/komis",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      data: dat
-    };
-
-    axios(config)
+    axios.post('/komis',dat)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
       })

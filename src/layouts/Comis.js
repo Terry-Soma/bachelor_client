@@ -5,7 +5,7 @@ import DemoNavbar from '../components/Admin/DemoNavbar/index.js';
 import Sidebar from '../components/Sidebar/Sidebar.js';
 import cm from '../cm';
 import routes from '../routes.js';
-import axios from 'axios';
+import axios from '../utils/axios.js';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
 var ps;
 function Dashboard(props) {
@@ -19,23 +19,14 @@ function Dashboard(props) {
     history.push('/comislogin');
   }
   const [data, setData] = useState([]);
-
-  var config = {
-    method: 'get',
-    url: 'https://ikhzasag-backend.herokuapp.com/api/v1/users',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
   const [id, setId] = useState();
 
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/users')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
     data.map((e) => {

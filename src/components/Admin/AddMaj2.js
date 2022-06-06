@@ -16,7 +16,7 @@ import {
   DropdownItem,
   DropdownToggle
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 
 function AddMaj2(props) {
   const [vis, setVis] = useState(false);
@@ -60,21 +60,12 @@ function AddMaj2(props) {
       hutulburId: parseInt(Val),
       suuri_shalgalt: Classes
     };
-    console.log(Class);
-    var config = {
-      method: "post",
-      url: "https://ikhzasag-backend.herokuapp.com/api/v1/mergejil",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      data: Class
-    };
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
+    axios.post('/mergejil',Class)
+      .then((response)=> {
+        console.log((response.data));
         history.push("/admin/Maj");
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
   }

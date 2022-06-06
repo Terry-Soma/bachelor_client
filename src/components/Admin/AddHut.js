@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import axios from "../../utils/axios";
 
 function AddHut() {
   let history = useHistory();
@@ -29,19 +29,15 @@ function AddHut() {
   function togg() {
     setOpen(!Open);
   }
-  var config = {
-    method: "get",
-    url: "https://ikhzasag-backend.herokuapp.com/api/v1/school",
-    headers: {}
-  };
+ 
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/school')
+      .then(({ data })=> {
         console.log(data.data);
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
   }, []);
@@ -55,20 +51,13 @@ function AddHut() {
       bosgo_onoo: score,
       schoolId: val
     };
-    var config = {
-      method: "post",
-      url: "https://ikhzasag-backend.herokuapp.com/api/v1/hutulbur",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      data: data
-    };
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
+  
+    axios.post('/hutulbur',data)
+      .then((response)=> {
+        console.log((response.data));
         history.push("/admin/Hut");
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
   }

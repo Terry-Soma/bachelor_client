@@ -11,7 +11,7 @@ import {
   InputGroupAddon,
   Table
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 import Select from "./Select.js";
 export default function SelectMaj(props) {
   const sty = {
@@ -23,7 +23,7 @@ export default function SelectMaj(props) {
 
   useEffect(() => {
     axios
-      .get("https://ikhzasag-backend.herokuapp.com/api/v1/views/allinfo")
+      .get("/views/allinfo")
       .then(({ data }) => setInfo(data.data))
       .catch((err) => console.log(err));
   }, []);
@@ -51,7 +51,6 @@ export default function SelectMaj(props) {
     );
   }
 
-  const pot = <></>;
   return (
     <>
       <Card styles={{ backgroundColor: "#f2f2f2" }}>

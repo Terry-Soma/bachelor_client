@@ -11,22 +11,16 @@ import {
   FormGroup,
   Form
 } from "reactstrap";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 
 function TableSch2(props) {
-  var config = {
-    method: "delete",
-    url:
-      "https://ikhzasag-backend.herokuapp.com/api/v1/school/" + props.data.Id,
-    headers: {}
-  };
+ 
   function Del() {
-    console.log(config.url);
-    axios(config)
-      .then(function (response) {
+    axios.delete("/school/" + props.data.Id)
+      .then((response)=> {
         console.log(JSON.stringify(response.data));
       })
-      .catch(function (error) {
+      .catch((error)=> {
         console.log(error);
       });
   }

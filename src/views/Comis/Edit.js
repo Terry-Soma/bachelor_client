@@ -13,7 +13,7 @@ import {
   Input
 } from "reactstrap";
 import Edit2 from "./Edit_2";
-import axios from "axios";
+import axios from "../../utils/axios.js";
 import cm from "../../cm";
 
 function Edit() {
@@ -26,11 +26,11 @@ function Edit() {
   };
 
   useEffect(() => {
-    axios(config)
-      .then(function ({ data }) {
+    axios.get('/elsegch')
+      .then(({ data })=> {
         setData(data.data);
       })
-      .catch(function (error) {
+      .catch((error) =>{
         console.log(error);
       });
   }, []);
