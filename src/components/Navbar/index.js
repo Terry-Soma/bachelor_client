@@ -16,18 +16,22 @@ export default function Menu() {
         bg="myNav"
         variant="light"
         fixed="top"
-        expand="sm"
+        expand="lg"
         expanded={expanded}
       >
         <Container>
           <Navbar.Brand>
-            <Link to="/" onClick={() => setExpanded(false)}>
+            <Link to="/" className='d-flex align-items-center justify-content-evenly gap-2' onClick={() => setExpanded(false)}>
               <img
                 src={Logo}
                 className="d-inline-block align-top ms-3"
                 alt="Их засаг лого"
                 height="50px"
               />
+              <p className='fs-4 mx-2' 
+              style={{fontWeight: "300",
+                      fontFamily: "Lato, sans-serif"
+                      }}>ИХ ЗАСАГ ЭЛСЭЛТ</p>
             </Link>
           </Navbar.Brand>
 
@@ -36,8 +40,8 @@ export default function Menu() {
               setExpanded(expanded ? false : 'expanded');
             }}
           />
-          <Navbar.Collapse id="navbarScroll" className="mb-4">
-            <Nav className="me-auto">
+          <Navbar.Collapse id="navbarScroll" className="">
+            <Nav className="me-auto align-items-center">
               <Link
                 className="nav-link p-3 fs-4 mx-4"
                 to="/info"
@@ -53,8 +57,8 @@ export default function Menu() {
                 Салбар сургууль
               </Link>
             </Nav>
-            {(Ectx.state.burtgel_Id && Ectx.state.email) ? (
-              <Nav>
+            {(Ectx.state.burtgel_Id && Ectx.state.email && Ectx.state.emailVerified) ? (
+              <Nav className="align-items-center">
                 <Link
                   className="fs-4  p-3 mainbtn"
                   to="/my-info"

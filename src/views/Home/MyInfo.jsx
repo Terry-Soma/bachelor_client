@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import css from './style.module.css';
-import { useHistory } from 'react-router-dom';
 import { Card, Spinner } from 'react-bootstrap';
 import axios from '../../utils/axios.js';
 import ElsegchContext from '../../context/ElsegchContext.js';
@@ -10,7 +9,6 @@ import {toast, ToastContainer} from 'react-toastify';
 export default function MInfo() {
   const Ectx = useContext(ElsegchContext);
   const [mergejils, setMergejils] = useState([]);
-  let history = useHistory();
   const [saving, setSaving ]= useState(false);
 
   // if (Ectx.state.burtgel_Id === null && Ectx.state.email === null)
@@ -134,8 +132,8 @@ export default function MInfo() {
       ...error,
       main: '',
     });
-    setSaving(true);
     Ectx.insertMyInfo(Ectx.state.burtgel_Id, Ectx.state.email, lName, fName, rd, utas);
+    setSaving(true);
   };
 
 
@@ -315,7 +313,7 @@ export default function MInfo() {
       </>
       )
        : 
-      (/* medeelel baihgui uy */
+      (/* medeelel baihgui uyd */
       <>
       <Card>
        <ToastContainer

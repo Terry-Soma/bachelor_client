@@ -11,20 +11,27 @@ import axios from '../../../utils/axios.js';
 import ElsegchContext from '../../../context/ElsegchContext.js';
 import {toast, ToastContainer} from 'react-toastify';
 import css from '../style.module.css';
+import { useLocation } from 'react-router-dom';
 export default function Info() {
+  let query = useLocation();
   const Ectx = useContext(ElsegchContext);
   const [info, setInfo] = useState([]);
   const [searchTerm, setST ] = useState("")
   const [saving, setSV] = useState(false)
+  const [bread, setBread] = useState({
+    magister : false,
+    bachelor : true
+  });
   useEffect(() => {
     axios
       .get('/views/allinfo')
-      .then(({ data }) => setInfo(data.data))
+      .then(({ data }) => {setInfo(data.data); console.log(data.data)})
       .catch((err) => console.log(err));
     
     if(Ectx.state.burtgel_Id) {
       Ectx.rememberMe(Ectx.state.burtgel_Id);
     }
+
   }, []);
 
   useEffect(()=>{
@@ -36,6 +43,24 @@ export default function Info() {
     }
   },[Ectx.state.too]); 
 
+
+  let filteredinfo;
+  if(query.state){
+    let s = query.state.toString();
+    filteredinfo = info.filter(el =>
+    el.s_name.toLowerCase().includes(s.toLowerCase())
+    );
+  }else{
+    if(searchTerm == "?"){
+      filteredinfo = info.filter(el =>
+        !el.m_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );  
+    }else{
+      filteredinfo = info.filter(el =>
+        el.m_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );  
+    }
+  }
   
   const chooseMergejil = mergejilId =>{
     setSV(true)
@@ -47,10 +72,24 @@ export default function Info() {
     Ectx.choose(Ectx.state.burtgel_Id, mergejilId, ognoo);
     return;
   }
+ 
+  const breadB = ()=>{
+    setBread({
+      magister:false,
+      bachelor : true
+    })
+    setST("?")
+  } 
+  
+  const breadM = ()=>{
+    setBread({
+      magister:true,
+      bachelor : false
+    })
+      setST('Магистр')
+    
+  } 
 
-  const filteredinfo = info.filter(el =>
-    el.m_name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
   return (
     <>
       <Card style={{ backgroundColor: '#f2f2f2' }} >
@@ -76,6 +115,13 @@ export default function Info() {
         pauseOnHover
         />
         <CardBody>
+      <nav>
+        <ol className="breadcrumb">
+          <li className={`breadcrumb-item lead fs-1 pe-2 ${bread.magister ? "active" : ""} `} onClick={breadM}>Магистр</li>
+          <li className={`breadcrumb-item lead fs-1 pe-2 ${bread.bachelor ? "active" : ""} `} onClick={breadB}>Бакалавр</li>
+        </ol>
+      </nav>
+
           <Table striped bordered hover responsive>
             <thead className="text-primary">
               <tr>
@@ -118,19 +164,15 @@ export default function Info() {
                     )
                     }
                       <td className="lead fs-5">
-                        <a href={e.link} target="_blank">{e.s_name} </a></td>
-                      <td className="lead fs-5">
-                      <a href={e.link} target="_blank">{e.h_name} </a></td>
+                      <a href={e.link} target="_blank">{e.s_name} </a></td>
+                      <td className="lead fs-5">{e.h_name}</td>
                       <td className="lead fs-5">{e.m_name}</td>
                       <td>
                         <div className="mergeshil lead fs-5">{e.mergeshil}</div>
                       </td>
-                      <td className="lead fs-5">
-                      <a href={e.link} target="_blank">{e.bosgo_onoo}</a></td>
-                      <td className="lead fs-5">
-                        <a href={e.link} target="_blank">{e.shalgalt}</a></td>
-                      <td className="lead fs-5">
-                      <a href={e.link} target="_blank">{sh2}</a></td>
+                      <td className="lead fs-5">{e.bosgo_onoo}</td>
+                      <td className="lead fs-5">{e.shalgalt}</td>
+                      <td className="lead fs-5">{sh2}</td>
                     </tr>
                   );
                 })}

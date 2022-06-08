@@ -8,12 +8,14 @@ export default function School() {
   useEffect(() => {
     axios.get('/school')
       .then(({ data })=> {
+        console.log(data.data)
         setData(data.data);
       })
       .catch(function (error) {
         console.log(error);
       });
   }, []);
+
   return (
     <div className="container">
       <section id={css.school}>
@@ -24,10 +26,10 @@ export default function School() {
             var res = e.color.substring(0, 5);
             return (
               <>
-                <div className={css.card}>
+                <div className={css.card} key={e.Id}>
                   <div className={css['card__header']}>
                     <div className={css['card__picture']}>
-                      <div
+                      <div  
                         className={css['card__picture-overlay']}
                         style={{
                           backgroundImage: `linear-gradient(to right bottom, ${
@@ -85,8 +87,8 @@ export default function School() {
                     </a>
                     <Link
                       to={{
-                        pathname: '/school',
-                        state: { Sch: e.name },
+                        pathname: '/info',
+                        state: e.name,
                       }}
                       className={`${css['btn']} ${css['btn--green']} ${css['btn--small']}`}
                       style={{

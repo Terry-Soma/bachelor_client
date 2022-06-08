@@ -8,6 +8,11 @@ input {
   height: 44px !important;
 }
 
-a{
+td a{
   color:#212529;
+  text-decoration: underline;
+}
+ol li{
+  cursor: pointer;
+  text-decoration: underline;
 }

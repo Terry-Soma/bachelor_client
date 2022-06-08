@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BsFillFileEarmarkSpreadsheetFill } from 'react-icons/bs';
 import axios from '../utils/axios.js';
 const ElsegchContext = React.createContext();
 
@@ -10,9 +11,11 @@ const initialState = {
   rd: null,
   utas: null,
   error: null,
-  loading: false,
-  saving:false,
-  too:5
+  loading : false,
+  saving : false,
+  too : 5,
+  emailVerified : false,
+  mergejils : []
 };
 export const ElsegchStore = (props) => {
   const [state, setState] = useState(initialState);
@@ -23,22 +26,25 @@ export const ElsegchStore = (props) => {
     axios 
       .post('/elsegch/remember-me', { butDugaar })
       .then(result => {
-        const data = result.data["butDugaar"];
+        console.log(result.data)
+        let data = result.data["butDugaar"];
+        if(result.data.mergejils[0]?.mergejils){
+          let array = result.data.mergejils[0]?.mergejils.split(',');
+          data["mergejils"] =array;
+        }
+        console.log(data);
         if(result.data["too"].length > 0){
           data["too"] = 5 - result.data.too[0]?.count;
           console.log(data["too"]);
         }
         if (isNaN(data)) {
           setState({ ...state, error: null, loading : false, ...data });
-          localStorage.setItem("burtgel_Id",data["burtgel_Id"]);
-          localStorage.setItem("email", data["email"]);
         }else{
           setState({
             ...state,
             error:null,
             burtgel_Id: data,
           });
-          localStorage.setItem("burtgel_Id",data);
         }
       })
       .catch(response => {
@@ -46,11 +52,33 @@ export const ElsegchStore = (props) => {
       });
   };
 
-const googleOAuth = (token, butDugaar) => {
+const googleOAuth = (token, profile,butDugaar) => {
     setState({
       ...state,
       loading: true,
     });
+
+    if(state.email){
+      if(state.email ===  profile.email){
+        setState({
+          ...state,
+          emailVerified:true,
+          loading: false,
+        })
+        localStorage.setItem("email",state.email);
+        localStorage.setItem("burtgel_Id", state.burtgel_Id);
+        localStorage.setItem("EV", true);
+        return ;
+      }else{
+        setState({
+          ...state,
+          error : "Буруу и-мэйл хаяг байна",
+          emailVerified:false,
+          loading: false,
+        })
+        return ;
+      }
+    }
     axios.post('/elsegch/google', {
         token,
         burtgel_Id: butDugaar,
@@ -64,6 +92,7 @@ const googleOAuth = (token, butDugaar) => {
           error:null
         });
         localStorage.setItem("email",obj["email"]);
+        localStorage.setItem("burtgel_Id",obj["burtgel_Id"]);
       })
       .catch((error) => {
         setState({
@@ -114,12 +143,14 @@ const googleOAuth = (token, butDugaar) => {
   const logout = () => {
     localStorage.removeItem("email");
     localStorage.removeItem("burtgel_Id");
+    localStorage.removeItem("EV");  
     setState(initialState);
   };
 
-  const autoLogin = (burtgel_Id, email)=>{
+  const autoLogin = (burtgel_Id, email, EV)=>{
     localStorage.setItem("burtgel_Id",burtgel_Id);
     localStorage.setItem("email", email);
+    localStorage.setItem("EV",EV);
 
     setState({
       ...state,
@@ -127,6 +158,7 @@ const googleOAuth = (token, butDugaar) => {
       error: null,
       email,
       burtgel_Id,
+      emailVerified:EV
     });
   }
 

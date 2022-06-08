@@ -21,9 +21,9 @@ export default function App() {
   useEffect(()=>{
     const burtgel_Id = localStorage.getItem("burtgel_Id");
     const email= localStorage.getItem("email");
-
+    const emailVerified = localStorage.getItem("EV");
     if(burtgel_Id && email){
-      Ectx.autoLogin(burtgel_Id, email)
+      Ectx.autoLogin(burtgel_Id, email, emailVerified)
     }
 
   },[])

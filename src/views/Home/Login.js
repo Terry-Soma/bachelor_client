@@ -16,23 +16,23 @@ function Login() {
 
   let history = useHistory();
 
-  if (Ectx.state.burtgel_Id != null && Ectx.state.email != null)
-    history.push('/info');
+  // if (Ectx.state.burtgel_Id != null && Ectx.state.email != null)
+  //   history.push('/info');
+  //
   useEffect(() => {
-    if (Ectx.state.burtgel_Id != null && Ectx.state.email != null) {
-      history.push('/info');
-    } else if (Ectx.state.burtgel_Id != null && Ectx.state.email == null) {
+    if (Ectx.state.burtgel_Id != null) {
       nextStep();
     }
-  }, [Ectx.state.burtgel_Id]);
+    if (Ectx.state.burtgel_Id != null && Ectx.state.email != null && Ectx.state.emailVerified) {
+      history.push('/info');
+    }
+  }, [Ectx.state.burtgel_Id, Ectx.state.emailVerified]);
 
   const handleBut = (e) => {
     setBut(e.target.value);
   };
-  const responseGoogle =  (response) => {
-    console.log(response?.tokenId);
-    
-    Ectx.googleOAuth(response?.tokenId, Ectx.state.burtgel_Id);
+  const responseGoogle =  (response) => {    
+    Ectx.googleOAuth(response?.tokenId, response?.profileObj , Ectx.state.burtgel_Id);
   };
   const responseFailure = (response) => {
     console.log(response);
@@ -94,7 +94,6 @@ const handleLogin = () => {
         </div>
       );
     case 2:
-      Ectx.state.email && history.push('/info');
       return (
         <div className="pt-3" style={{ marginBottom: '30vh' }}>
           <Card
