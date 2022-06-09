@@ -13,6 +13,9 @@ img {
   color: #090909 !important;
   text-decoration: none;
 }
+.navbar{
+  margin-bottom : unset;
+}
 
 .mainbtn {
   border-radius: 4px;
@@ -33,9 +36,7 @@ img {
   background: #1b74e4;
   color: #010606;
 }
-a.nav-link:last-child{
-  display: inline-block;
-}
+
 @media (min-width: 576px) {
   .navbar-expand-sm .navbar-collapse {
     display: flex !important;
@@ -45,10 +46,5 @@ a.nav-link:last-child{
   .navbar-expand-sm .navbar-nav:last-child {
     flex-direction: row;
     align-items: center;
-  }
-}
-@media (max-width: 678px) {
-  a.nav-link:last-child{
-    display: none;
   }
 }

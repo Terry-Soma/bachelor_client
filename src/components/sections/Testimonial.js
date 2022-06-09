@@ -69,7 +69,7 @@ const Testimonial = ({
                   <span className="testimonial-item-name text-color-high">Эрхэм зорилго</span>
                   <span className="text-color-low"> / </span>
                   <span className="testimonial-item-link">
-                    <a href="#0">ИЗОУИС</a>
+                    <a href="https:ikhzasag.edu.mn">ИЗОУИС</a>
                   </span>
                 </div>
               </div>
@@ -86,7 +86,7 @@ const Testimonial = ({
                   <span className="testimonial-item-name text-color-high">Алсын хараа</span>
                   <span className="text-color-low"> / </span>
                   <span className="testimonial-item-link">
-                    <a href="#0">ИЗОУИС</a>
+                    <a href="https:ikhzasag.edu.mn">ИЗОУИС</a>
                   </span>
                 </div>
               </div>
@@ -103,7 +103,7 @@ const Testimonial = ({
                   <span className="testimonial-item-name text-color-high">Элсэлтийн бүртгэл</span>
                   <span className="text-color-low"> / </span>
                   <span className="testimonial-item-link">
-                    <a href="#0">ИЗОУИС</a>
+                    <a href="https:ikhzasag.edu.mn">ИЗОУИС</a>
                   </span>
                 </div>
               </div>

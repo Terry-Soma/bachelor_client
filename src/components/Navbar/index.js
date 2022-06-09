@@ -15,9 +15,9 @@ export default function Menu() {
         collapseOnSelect
         bg="myNav"
         variant="light"
-        fixed="top"
         expand="lg"
         expanded={expanded}
+        sticky="top" 
       >
         <Container>
           <Navbar.Brand>
@@ -60,7 +60,7 @@ export default function Menu() {
             {(Ectx.state.burtgel_Id && Ectx.state.email && Ectx.state.emailVerified) ? (
               <Nav className="align-items-center">
                 <Link
-                  className="fs-4  p-3 mainbtn"
+                  className="fs-4  p-3 mainbtn text-center"
                   to="/my-info"
                   onClick={() => setExpanded(false)}
                 >
@@ -77,7 +77,7 @@ export default function Menu() {
             ) : (
               <Nav>
                 <Link
-                  className="fs-4  p-3 mainbtn"
+                  className="fs-4 p-3 mainbtn text-center"
                   to="/login"
                   onClick={() => setExpanded(false)}
                 >
