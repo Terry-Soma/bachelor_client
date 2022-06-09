@@ -4,7 +4,7 @@ export default function Layout(props) {
   return (
     <>
       <Navbar />
-      <div style={{ marginTop: '100px' }} className="container">
+      <div style={{ paddingTop: '100px', paddingBottom : '100px'}} className= "mycon">
         {props.children}
       </div>
       <Footer />

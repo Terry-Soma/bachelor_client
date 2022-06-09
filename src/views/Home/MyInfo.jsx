@@ -140,8 +140,8 @@ export default function MInfo() {
   return (
     <div className="container">
       {Ectx.state.fname && Ectx.state.lname && Ectx.state.rd && Ectx.state.utas ? ( 
-        <>
-    <Card>
+        <> 
+      <Card style={{ backgroundColor: '#444' }} className="mb-5 text-light">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -290,7 +290,7 @@ export default function MInfo() {
       </Card>
      
       {mergejils.length > 0 && (
-        <Card>
+        <Card style={{ backgroundColor: '#444' }} className="mb-5 text-light">
           <Card.Body>
             <p className='lead alert alert-info p-4 fs-4'> Таны сонгосон мэргэжлүүд</p>
           </Card.Body>
@@ -300,9 +300,9 @@ export default function MInfo() {
       {mergejils &&
                 mergejils.map( mergejil => {
                   return (
-                    <Card key={mergejil.mergejilId}>
+                    <Card key={mergejil.mergejilId} style={{ backgroundColor: '#444' }} className="mb-5 text-light">
                       <Card.Body>
-                        <p className='lead fs-4 p-2'>
+                        <p className='lead fs-4 pt-2'>
                           {mergejil.Mergejil.name}
                         </p>
                       </Card.Body>
@@ -315,7 +315,7 @@ export default function MInfo() {
        : 
       (/* medeelel baihgui uyd */
       <>
-      <Card>
+      <Card style={{ backgroundColor: '#444' }} className="mb-5 text-light">
        <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -458,7 +458,7 @@ export default function MInfo() {
         </Card.Body>
       </Card>
       {mergejils.length > 0 && (
-        <Card>
+        <Card style={{ backgroundColor: '#444' }} className="mb-5 text-light">
           <Card.Body>
             <p className='lead alert alert-info p-4 fs-4'> Таны сонгосон мэргэжлүүд</p>
           </Card.Body>
@@ -468,9 +468,9 @@ export default function MInfo() {
       {mergejils &&
                 mergejils.map( mergejil => {
                   return (
-                    <Card key={mergejil.mergejilId}>
+                    <Card key={mergejil.mergejilId} style={{ backgroundColor: '#444' }} className="mb-5 text-light">
                       <Card.Body>
-                        <p className='lead fs-4 p-2'>
+                        <p className='lead fs-4 pt-2'>
                           {mergejil.Mergejil.name}
                         </p>
                       </Card.Body>

@@ -17,7 +17,7 @@ export default function School() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container text-secondary py-5">
       <section id={css.school}>
         <div className={css['card-container']}>
           {data.map((e) => {

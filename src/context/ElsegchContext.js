@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { BsFillFileEarmarkSpreadsheetFill } from 'react-icons/bs';
 import axios from '../utils/axios.js';
 const ElsegchContext = React.createContext();
-
+import validator from 'validator';
 const initialState = {
   burtgel_Id: null,
   email: null,
@@ -17,6 +16,7 @@ const initialState = {
   emailVerified : false,
   mergejils : []
 };
+
 export const ElsegchStore = (props) => {
   const [state, setState] = useState(initialState);
   const rememberMe = (butDugaar, EV) => {
@@ -80,7 +80,7 @@ export const ElsegchStore = (props) => {
       });
   };
 
-const googleOAuth = (token, profile,butDugaar) => {
+  const googleOAuth = (token, profile,butDugaar) => {
     setState({
       ...state,
       loading: true,
@@ -160,6 +160,15 @@ const googleOAuth = (token, profile,butDugaar) => {
     setState({ ...state, loading : true});
     mergejilId = mergejilId.toString();
     
+    if(state.fname == null | state.lname == null | state.rd == null | state.utas == null){
+      setState({
+        ...state,
+        error : 'Та хувийн мэдээллээ бүрэн оруулсны дараа хөтөлбөр сонгох боломжтой',
+        loading : false
+      })
+
+      return ;
+    }
     if(state.mergejils.includes(mergejilId)){
       setState({
         ...state,

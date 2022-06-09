@@ -11,7 +11,7 @@ export default function Footer() {
   const Ectx = useContext(ElsegchContext);
   return (
     <>
-      <footer className=" text-center text-lg-start bg-light text-muted mt-5 bg-dark">
+      <footer className=" text-center text-lg-start bg-light text-muted pt-5 bg-dark">
          
         <section className='p-4 border-bottom'>
           <div className="container  text-white text-center text-md-start mt-5">

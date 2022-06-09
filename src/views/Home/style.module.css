@@ -6,10 +6,15 @@
 
 input {
   height: 44px !important;
+  background: #444 !important; 
+  color: #fff !important;
+}
+.form-control::placeholder {
+  color: #fff;
+  opacity: 1;
 }
 
 td a{
-  color:#212529;
   text-decoration: underline;
 }
 ol li{

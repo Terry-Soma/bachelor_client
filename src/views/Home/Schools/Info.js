@@ -99,13 +99,13 @@ export default function Info() {
   console.log(Ectx.state)
   return (
     <>
-      <Card style={{ backgroundColor: '#f2f2f2' }} >
+      <Card style={{ backgroundColor: '#444' }}  className="container text-light">
       <InputGroup className="no-border text-center">
           <Input
             onChange={(event)=> setST(event.target.value)
             }
             placeholder="Мэргэжлийн нэрээр хайх..."
-            className='text-center fs-4 lead'
+            className='text-center fs-4 lead text-white'
           />
         <InputGroupAddon addonType="append"></InputGroupAddon>
       </InputGroup>
@@ -128,7 +128,7 @@ export default function Info() {
         </ol>
       </nav>
 
-          <Table striped bordered hover responsive>
+          <Table striped bordered hover responsive dark>
             <thead className="text-primary">
               <tr>
               {Ectx.state.burtgel_Id && Ectx.state.email && 
