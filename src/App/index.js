@@ -25,10 +25,7 @@ export default function App() {
     if(burtgel_Id && email){
       Ectx.autoLogin(burtgel_Id, email, emailVerified)
     }
-
   },[])
-
-
 
   return (
     <div>

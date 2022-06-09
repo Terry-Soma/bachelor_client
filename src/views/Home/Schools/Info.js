@@ -43,6 +43,12 @@ export default function Info() {
     }
   },[Ectx.state.too]); 
 
+  useEffect(()=>{
+    if(Ectx.state.error){
+      toast.error(Ectx.state.error);
+      setSV(false);
+    }
+  },[Ectx.state.error]); 
 
   let filteredinfo;
   if(query.state){
@@ -64,7 +70,7 @@ export default function Info() {
   
   const chooseMergejil = mergejilId =>{
     setSV(true)
-    if(parseInt(Ectx.state.too) < 0){
+    if(parseInt(Ectx.state.too) <= 0){
       toast.error('Уучлаарай, Та 5-аас дээш мэргэжил сонгох боломжгүй')
       return;
     }
@@ -90,6 +96,7 @@ export default function Info() {
     
   } 
 
+  console.log(Ectx.state)
   return (
     <>
       <Card style={{ backgroundColor: '#f2f2f2' }} >
@@ -98,8 +105,7 @@ export default function Info() {
             onChange={(event)=> setST(event.target.value)
             }
             placeholder="Мэргэжлийн нэрээр хайх..."
-            className='text-center fs-4 lead bg-'
-            
+            className='text-center fs-4 lead'
           />
         <InputGroupAddon addonType="append"></InputGroupAddon>
       </InputGroup>

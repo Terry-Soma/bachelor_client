@@ -16,9 +16,9 @@ function Login() {
 
   let history = useHistory();
 
-  // if (Ectx.state.burtgel_Id != null && Ectx.state.email != null)
-  //   history.push('/info');
-  //
+  if (Ectx.state.burtgel_Id != null && Ectx.state.email != null && Ectx.state.emailVerified)
+    history.push('/info');
+  
   useEffect(() => {
     if (Ectx.state.burtgel_Id != null) {
       nextStep();
@@ -94,6 +94,7 @@ const handleLogin = () => {
         </div>
       );
     case 2:
+      Ectx.state.burtgel_Id != null && Ectx.state.email != null && Ectx.state.emailVerified && history.push('/info')
       return (
         <div className="pt-3" style={{ marginBottom: '30vh' }}>
           <Card
