@@ -25,8 +25,8 @@ export default function Info() {
   useEffect(() => {
     axios
       .get('/views/allinfo')
-      .then(({ data }) => {setInfo(data.data); console.log(data.data)})
-      .catch((err) => console.log(err));
+      .then(({ data }) => setInfo(data.data))
+      .catch((err) => console.log("Error"));
     
     if(Ectx.state.burtgel_Id) {
       Ectx.rememberMe(Ectx.state.burtgel_Id);
@@ -58,9 +58,7 @@ export default function Info() {
     );
   }else{
     if(searchTerm == "?"){
-      filteredinfo = info.filter(el =>
-        !el.m_name.toLowerCase().includes(searchTerm.toLowerCase())
-      );  
+      filteredinfo = [...info];  
     }else{
       filteredinfo = info.filter(el =>
         el.m_name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -95,8 +93,74 @@ export default function Info() {
       setST('Магистр')
     
   } 
-
-  console.log(Ectx.state)
+  const mergejils = data => {
+    let fill = [...data];
+    fill.map(function (e, index, array) {
+      let sh2;
+      if(e.MergejilId == 8 || e.MergejilId == 9){
+        return;
+      }
+      if(e.MergejilId == 7 || e.MergejilId == 15){
+        return (
+        <tr key={e.MergejilId}>
+        {Ectx.state.burtgel_Id && Ectx.state.email &&
+        (
+        <td className="lead fs-5">
+          <button className='btn btn-primary' onClick={()=> chooseMergejil(e.MergejilId)}>
+            Сонгох
+          </button>
+        </td>
+        )
+        }
+          <td className="lead fs-5">
+          <a href={e.link} target="_blank">{e.s_name} </a></td>
+          <td className="lead fs-5">{e.h_name}</td>
+          <td className="lead fs-5">{e.m_name}</td>
+          <td>
+            <div className="mergeshil lead fs-5">{e.mergeshil}</div>
+          </td>
+          <td className="lead fs-5"></td>
+          <td className="lead fs-5"></td>
+          <td className="lead fs-5"></td>
+        </tr>
+        );
+      }
+      if (
+        index < fill.length &&
+        array[++index]?.MergejilId === e.MergejilId
+      ) {
+        sh2 = array[index]?.shalgalt;
+      } else if (array[index - 2]?.MergejilId === e.MergejilId) {
+        return;
+      }
+      return ( 
+        <tr key={e.MergejilId}>
+        {Ectx.state.burtgel_Id && Ectx.state.email &&
+        (
+        <td className="lead fs-5">
+          <button className='btn btn-primary' onClick={()=> chooseMergejil(e.MergejilId)}>
+            Сонгох
+          </button>
+        </td>
+        )
+        }
+          <td className="lead fs-5">
+          <a href={e.link} target="_blank">{e.s_name} </a></td>
+          <td className="lead fs-5">{e.h_name}</td>
+          <td className="lead fs-5">{e.m_name}</td>
+          <td>
+            <div className="mergeshil lead fs-5">{e.mergeshil}</div>
+          </td>
+          <td className="lead fs-5">{e.bosgo_onoo}</td>
+          <td className="lead fs-5">{e.shalgalt}</td>
+          <td className="lead fs-5">{sh2}</td>
+        </tr>
+      );
+    })
+  }
+  
+  let fill = [...filteredinfo];
+  console.log(fill)
   return (
     <>
       <Card style={{ backgroundColor: '#444' }}  className="container text-light">
@@ -146,19 +210,72 @@ export default function Info() {
               </tr>
             </thead>
             <tbody>
-              {filteredinfo &&
-                filteredinfo.map(function (e, index, array) {
+              {filteredinfo && fill &&
+                fill.map(function (e, index, array) {
                   let sh2;
+                  if(e.MergejilId == 8 || e.MergejilId == 9){
+                    if(bread.bachelor) return;
+                    else {
+                      return ( 
+                        <tr key={e.MergejilId}>
+                        {Ectx.state.burtgel_Id && Ectx.state.email &&
+                        (
+                        <td className="lead fs-5">
+                          <button className='btn btn-primary' onClick={()=> chooseMergejil(e.MergejilId)}>
+                            Сонгох
+                          </button>
+                        </td>
+                        )
+                        }
+                          <td className="lead fs-5">
+                          <a href={e.link} target="_blank">{e.s_name} </a></td>
+                          <td className="lead fs-5">{e.h_name}</td>
+                          <td className="lead fs-5">{e.m_name}</td>
+                          <td>
+                            <div className="mergeshil lead fs-5">{e.mergeshil}</div>
+                          </td>
+                          <td className="lead fs-5">{e.bosgo_onoo}</td>
+                          <td className="lead fs-5">{e.shalgalt}</td>
+                          <td className="lead fs-5">{sh2}</td>
+                        </tr>
+                      );
+                    }
+                    
+                  }
+                  if(e.MergejilId == 7 || e.MergejilId == 15){
+                    return (
+                    <tr key={e.MergejilId}>
+                    {Ectx.state.burtgel_Id && Ectx.state.email &&
+                    (
+                    <td className="lead fs-5">
+                      <button className='btn btn-primary' onClick={()=> chooseMergejil(e.MergejilId)}>
+                        Сонгох
+                      </button>
+                    </td>
+                    )
+                    }
+                      <td className="lead fs-5">
+                      <a href={e.link} target="_blank">{e.s_name} </a></td>
+                      <td className="lead fs-5">{e.h_name}</td>
+                      <td className="lead fs-5">{e.m_name}</td>
+                      <td>
+                        <div className="mergeshil lead fs-5">{e.mergeshil}</div>
+                      </td>
+                      <td className="lead fs-5"></td>
+                      <td className="lead fs-5"></td>
+                      <td className="lead fs-5"></td>
+                    </tr>
+                    );
+                  }
                   if (
-                    index < filteredinfo.length &&
+                    index < fill.length &&
                     array[++index]?.MergejilId === e.MergejilId
                   ) {
                     sh2 = array[index]?.shalgalt;
                   } else if (array[index - 2]?.MergejilId === e.MergejilId) {
                     return;
                   }
-                  return (
-                    
+                  return ( 
                     <tr key={e.MergejilId}>
                     {Ectx.state.burtgel_Id && Ectx.state.email &&
                     (
@@ -181,7 +298,8 @@ export default function Info() {
                       <td className="lead fs-5">{sh2}</td>
                     </tr>
                   );
-                })}
+                })
+              }
 
             </tbody>
           </Table>
