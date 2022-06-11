@@ -14,13 +14,17 @@ import css from '../style.module.css';
 import { useLocation } from 'react-router-dom';
 export default function Info() {
   let query = useLocation();
+
+  
+  let filteredinfo = [];
   const Ectx = useContext(ElsegchContext);
   const [info, setInfo] = useState([]);
   const [searchTerm, setST ] = useState("")
   const [saving, setSV] = useState(false)
   const [bread, setBread] = useState({
     magister : false,
-    bachelor : true
+    bachelor : true,
+    two : false
   });
   useEffect(() => {
     axios
@@ -31,8 +35,8 @@ export default function Info() {
     if(Ectx.state.burtgel_Id) {
       Ectx.rememberMe(Ectx.state.burtgel_Id);
     }
-
   }, []);
+
 
   useEffect(()=>{
     if(Ectx.state.saving && saving){
@@ -50,20 +54,30 @@ export default function Info() {
     }
   },[Ectx.state.error]); 
 
-  let filteredinfo;
-  if(query.state){
+  if(query.state && query.state != 'РОЯАЛЬ ОЛОН УЛСЫН ИХ СУРГУУЛЬ' && 
+    query.state != 'ЖЭСАН ЧИНГИС ХААН ГАДААД ХЭЛ СОЁЛЫН СУРГУУЛЬ' &&
+    query.state != 'ИХ ЗАСАГ МЭРГЭЖИЛ СУРГАЛТЫН ҮЙЛДВЭРЛЭЛИЙН ТӨВ'
+    )
+    {
     let s = query.state.toString();
     filteredinfo = info.filter(el =>
     el.s_name.toLowerCase().includes(s.toLowerCase())
     );
-  }else{
+  }else if(searchTerm) {
     if(searchTerm == "?"){
-      filteredinfo = [...info];  
-    }else{
+      filteredinfo = info.slice(0,69);
+    }else if(searchTerm == "@"){
+      filteredinfo = info.filter(el =>
+        el.mergeshil.toLowerCase().includes("2+2")
+      );  
+    }
+    else{
       filteredinfo = info.filter(el =>
         el.m_name.toLowerCase().includes(searchTerm.toLowerCase())
       );  
     }
+  }else{
+    if(!filteredinfo.length > 0) filteredinfo = info.slice(0,69);
   }
   
   const chooseMergejil = mergejilId =>{
@@ -80,87 +94,31 @@ export default function Info() {
   const breadB = ()=>{
     setBread({
       magister:false,
-      bachelor : true
+      bachelor : true,
+      two : false
     })
     setST("?")
   } 
   
+  const breadT = () =>{
+    console.log('bi ')
+    setBread({
+      magister:false,
+      bachelor : false,
+      two: true
+    })
+    setST("@");
+  } 
   const breadM = ()=>{
     setBread({
       magister:true,
-      bachelor : false
+      bachelor : false,
+      two : false
     })
       setST('Магистр')
-    
   } 
-  const mergejils = data => {
-    let fill = [...data];
-    fill.map(function (e, index, array) {
-      let sh2;
-      if(e.MergejilId == 8 || e.MergejilId == 9){
-        return;
-      }
-      if(e.MergejilId == 7 || e.MergejilId == 15){
-        return (
-        <tr key={e.MergejilId}>
-        {Ectx.state.burtgel_Id && Ectx.state.email &&
-        (
-        <td className="lead fs-5">
-          <button className='btn btn-primary' onClick={()=> chooseMergejil(e.MergejilId)}>
-            Сонгох
-          </button>
-        </td>
-        )
-        }
-          <td className="lead fs-5">
-          <a href={e.link} target="_blank">{e.s_name} </a></td>
-          <td className="lead fs-5">{e.h_name}</td>
-          <td className="lead fs-5">{e.m_name}</td>
-          <td>
-            <div className="mergeshil lead fs-5">{e.mergeshil}</div>
-          </td>
-          <td className="lead fs-5"></td>
-          <td className="lead fs-5"></td>
-          <td className="lead fs-5"></td>
-        </tr>
-        );
-      }
-      if (
-        index < fill.length &&
-        array[++index]?.MergejilId === e.MergejilId
-      ) {
-        sh2 = array[index]?.shalgalt;
-      } else if (array[index - 2]?.MergejilId === e.MergejilId) {
-        return;
-      }
-      return ( 
-        <tr key={e.MergejilId}>
-        {Ectx.state.burtgel_Id && Ectx.state.email &&
-        (
-        <td className="lead fs-5">
-          <button className='btn btn-primary' onClick={()=> chooseMergejil(e.MergejilId)}>
-            Сонгох
-          </button>
-        </td>
-        )
-        }
-          <td className="lead fs-5">
-          <a href={e.link} target="_blank">{e.s_name} </a></td>
-          <td className="lead fs-5">{e.h_name}</td>
-          <td className="lead fs-5">{e.m_name}</td>
-          <td>
-            <div className="mergeshil lead fs-5">{e.mergeshil}</div>
-          </td>
-          <td className="lead fs-5">{e.bosgo_onoo}</td>
-          <td className="lead fs-5">{e.shalgalt}</td>
-          <td className="lead fs-5">{sh2}</td>
-        </tr>
-      );
-    })
-  }
   
-  let fill = [...filteredinfo];
-  console.log(fill)
+  let fill = [...filteredinfo]
   return (
     <>
       <Card style={{ backgroundColor: '#444' }}  className="container text-light">
@@ -189,6 +147,8 @@ export default function Info() {
         <ol className="breadcrumb">
           <li className={`breadcrumb-item lead fs-1 pe-2 ${bread.magister ? "active" : ""} `} onClick={breadM}>Магистр</li>
           <li className={`breadcrumb-item lead fs-1 pe-2 ${bread.bachelor ? "active" : ""} `} onClick={breadB}>Бакалавр</li>
+          <li className={`breadcrumb-item lead fs-1 pe-2 ${bread.two ? "active" : ""} `} onClick={breadT}>2 + 2</li>
+
         </ol>
       </nav>
 
@@ -228,7 +188,7 @@ export default function Info() {
                         )
                         }
                           <td className="lead fs-5">
-                          <a href={e.link} target="_blank">{e.s_name} </a></td>
+                          <a href={e.mlink ? e.mlink : e.link} target="_blank">{e.s_name} </a></td>
                           <td className="lead fs-5">{e.h_name}</td>
                           <td className="lead fs-5">{e.m_name}</td>
                           <td>
@@ -255,7 +215,7 @@ export default function Info() {
                     )
                     }
                       <td className="lead fs-5">
-                      <a href={e.link} target="_blank">{e.s_name} </a></td>
+                      <a href={e.mlink ? e.mlink : e.link} target="_blank">{e.s_name} </a></td>
                       <td className="lead fs-5">{e.h_name}</td>
                       <td className="lead fs-5">{e.m_name}</td>
                       <td>
@@ -287,7 +247,7 @@ export default function Info() {
                     )
                     }
                       <td className="lead fs-5">
-                      <a href={e.link} target="_blank">{e.s_name} </a></td>
+                      <a href={e.mlink ? e.mlink : e.link} target="_blank">{e.s_name} </a></td>
                       <td className="lead fs-5">{e.h_name}</td>
                       <td className="lead fs-5">{e.m_name}</td>
                       <td>

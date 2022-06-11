@@ -5,7 +5,7 @@ export default function TopNav() {
   return (
     <div className={css.headin}>
         <h2>ИХ ЗАСАГ ОЛОН УЛСЫН ИХ СУРГУУЛЬ</h2>
-        <p>ЭЛСЭЛТ БҮРТГЭЛИЙН СИСТЕМ</p>
+        <p>ЭЛСЭЛТИЙН ЦАХИМ БҮРТГЭЛИЙН СИСТЕМ</p>
     </div>
   )
 }
