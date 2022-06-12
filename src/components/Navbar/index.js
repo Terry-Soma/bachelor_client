@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './style.css';
-import Logo from '../../assets/img/logo.png';
+import Logo from '../../assets/img/logowhite.png';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ElsegchContext from '../../context/ElsegchContext';

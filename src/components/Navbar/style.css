@@ -2,15 +2,18 @@ img {
   object-fit: cover;
 }
 .bg-myNav {
-  background-color: #f9f9f9;
-  color: #090909;
+ /*  background-color: #f9f9f9; */
+ background-color: #02338a;
+  /* color: #090909; */
+  color: #fff;
   z-index: 1000;
   moz-box-shadow: 0 5px 5px rgba(112, 110, 110, 0.75);
   -webkit-box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
   box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
 }
 .navbar a {
-  color: #090909 !important;
+  /* color: #090909 !important;*/ 
+  color: #fff !important;
   text-decoration: none;
 }
 .navbar{
@@ -19,7 +22,7 @@ img {
 
 .mainbtn {
   border-radius: 4px;
-  background: #cacaaf4a;
+  background: #e8e8e2b5;
   padding: 11px 22px !important;
   justify-self: flex-end;
   color: #fff;
