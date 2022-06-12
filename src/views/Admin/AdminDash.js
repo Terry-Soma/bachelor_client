@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useContext, useEffect, useState} from "react";
 import { Line, Pie } from "react-chartjs-2";
 import {
   Card,
@@ -17,11 +17,19 @@ import {
   dashboardEmailStatisticsChart,
   dashboardNASDAQChart
 } from "./variables/charts.js";
-import { useState, useEffect } from "react";
+
 import axios from "../../utils/axios.js";
+import { useHistory } from "react-router";
+import AdminContext from "../../context/AdminContext.js";
 
 function AdminDash() {
-  // burtgel/get-count
+  let history = useHistory();
+
+  const Actx = useContext(AdminContext);
+
+  if(Actx.state.email == null  && Actx.state.emailVerified ==false )
+      history.push('/adminlogin')
+  // burtgel/get-count 
   const [data, setData] = useState([]);
   const [sur, setSur] = useState([]);
   const [mer, setMer] = useState([]);

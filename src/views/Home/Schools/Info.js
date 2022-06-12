@@ -127,7 +127,7 @@ export default function Info() {
             onChange={(event)=> setST(event.target.value)
             }
             placeholder="Мэргэжлийн нэрээр хайх..."
-            className='text-center fs-4 lead text-white'
+            className='text-center fs-4 lead text-white pt-4'
           />
         <InputGroupAddon addonType="append"></InputGroupAddon>
       </InputGroup>

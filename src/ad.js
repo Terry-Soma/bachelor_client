@@ -1,3 +1,3 @@
-const ad = { st: true };
+const ad = { st: false };
 
 export default ad;

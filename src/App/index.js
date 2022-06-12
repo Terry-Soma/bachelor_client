@@ -13,6 +13,7 @@ import MInfo from '../views/Home/MyInfo.jsx';
 import School from '../views/Home/School';
 import Info from '../views/Home/Schools/Info';
 import Logout from '../components/Logout';
+import { AdminStore } from '../context/AdminContext';
 
 export default function App() {
 
@@ -61,20 +62,21 @@ export default function App() {
             </Layout>
           </Route>
         </Switch>
-      <Switch>
-        <Route path="/comis" render={(props) => <Dashboard  {...props} />} />
-        <Route path="/Admin" render={(props) => <Dashboard2 {...props} />} />
-        <Route path="/comis/2">
-          <Register3 />
-          {/* <Link to="/comis/add">Back</Link> */}
-        </Route>
-        <Route path="/AdminLogin">
-          <AdminLogin />
-        </Route>
-        <Route path="/ComisLogin">
-          <ComisLogin />
-        </Route>
-      </Switch>
+      <AdminStore>
+        <Switch>
+          <Route path="/comis" render={(props) => <Dashboard  {...props} />} />
+          <Route path="/admin" render={(props) => <Dashboard2 {...props} />} />
+          <Route path="/comis/2">
+            <Register3 />
+          </Route>
+          <Route path="/adminlogin">
+            <AdminLogin />
+          </Route>
+          <Route path="/ComisLogin">
+            <ComisLogin />
+          </Route>
+        </Switch>
+      </AdminStore>
     </div>
   );
 }

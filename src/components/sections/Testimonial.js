@@ -96,7 +96,7 @@ const Testimonial = ({
               <div className="tiles-item-inner">
                 <div className="testimonial-item-content">
                   <p className="text-sm mb-0">
-                  — Хялбараар элсэлчдэд өөрсдийгөө бүртгүүлэх боломж олгох зорилготой website
+                  — Элсэгчдэд их сургуульд бүртгүүлэх боломж олгох зорилготой цахим систем
                       </p>
                 </div>
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
