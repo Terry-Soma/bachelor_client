@@ -14,7 +14,7 @@ export default function Menu() {
       <Navbar
         collapseOnSelect
         bg="myNav"
-        variant="light"
+        variant="dark"
         expand="lg"
         expanded={expanded}
         sticky="top" 
