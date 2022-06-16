@@ -33,10 +33,10 @@ function AdminDash() {
   const [data, setData] = useState([]);
   const [sur, setSur] = useState([]);
   const [mer, setMer] = useState([]);
-
+  let cnt =0;
   useEffect(() => {
     axios
-      .get("/elsegch")
+      .get("/elsegch/withmergejil")
       .then(({ data }) => setData(data.data))
       .catch((err) => console.log(err));
     axios
@@ -81,7 +81,7 @@ function AdminDash() {
             <th>Нэр</th>
             <th>Утасны дугаар</th>
             <th>цахим шуудан</th>
-            <th>гэрчигээний дугаар</th>
+            <th>Сонгосон мэргэжлүүд</th>
             <th>Регистерийн дугаар</th>
           </tr>
         </thead>
@@ -90,12 +90,12 @@ function AdminDash() {
             return (
               <>
                 <tr>
-                  <td>{e.burtgel_Id}</td>
-                  <td>{e.fname}</td>
-                  <td>{e.lname}</td>
+                  <td>{e.but}</td>
+                  <td>{e.ovog}</td>
+                  <td>{e.ner}</td>
                   <td>{e.utas}</td>
                   <td>{e.email}</td>
-                  <td>{e.gerchilgee_dugaar}</td>
+                  <td>{e.mergejil}</td>
                   <td>{e.rd}</td>
                 </tr>
               </>
@@ -156,17 +156,18 @@ function AdminDash() {
         </Button>
         <Row>
           {sur.map((e) => {
+            cnt += e.bcount;
             return (
               <Col lg="3" md="6" sm="6">
                 <Card className="card-stats">
                   <CardBody>
                     <Row>
                       <Col className="my-auto" md="7" xs="5">
-                        <h2>{e.slug}</h2>
+                        <h2 className="fs-4 mb-3">{e.slug}</h2>
                       </Col>
                       <Col md="5" xs="7">
                         <div className="numbers">
-                          <p className="card-category">Нийт элсэгчид</p>
+                          <p className="card-category fs-5">Нийт элсэгчид</p>
                           <CardTitle tag="p">{e.bcount}</CardTitle>
                           <p />
                         </div>
@@ -177,6 +178,47 @@ function AdminDash() {
               </Col>
             );
           })}
+          <Col lg="3" md="6" sm="6">
+                <Card className="card-stats">
+                  <CardBody>
+                    <Row>
+                      <Col className="my-auto" md="7" xs="5">
+                        <h2 className="fs-4 mb-3">Бүх сургуульд</h2>
+                      </Col>
+                      <Col md="5" xs="7">
+                        <div className="numbers">
+                          <p className="card-category fs-5">Нийт элсэгчид</p>
+                          <CardTitle tag="p">{cnt}</CardTitle>
+                          <p />
+                        </div>
+                      </Col>
+                    </Row>
+                  </CardBody>
+                </Card>
+            </Col>
+
+            {
+              data && (
+                <Col lg="4" md="6" sm="6">
+                <Card className="card-stats">
+                  <CardBody>
+                    <Row>
+                      <Col className="my-auto" md="6" xs="5">
+                        <h2 className="fs-4">мэргэжил сонгосон</h2>
+                      </Col>
+                      <Col md="6" xs="12">
+                        <div className="numbers">
+                          <p className="card-category fs-5">Нийт элсэгч</p>
+                          <CardTitle tag="p">{data.length}</CardTitle>
+                          <p />
+                        </div>
+                      </Col>
+                    </Row>
+                  </CardBody>
+                </Card>
+            </Col>
+              )
+            }
         </Row>
         <Row>
           <Col md="12">

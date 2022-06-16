@@ -10,9 +10,8 @@ export default function MInfo() {
   const Ectx = useContext(ElsegchContext);
   const [mergejils, setMergejils] = useState([]);
   const [saving, setSaving ]= useState(false);
+  const [aimags, setAimags] = useState([]);
 
-  // if (Ectx.state.burtgel_Id === null && Ectx.state.email === null)
-  //   history.push('/login');
 
   useEffect(()=>{
     if(Ectx.state.saving && saving)
@@ -29,12 +28,16 @@ export default function MInfo() {
         setMergejils([...result.data.data]);
       }).catch(err=>
         toast.error("Уучлаарай алдаа гарлаа. Та дахин туршаад үзээрэй.")
-       );
+    );
+    axios.get('/aimag').then(result=>{  
+      setAimags(result.data.data)
+    }).catch(err=> console.log("aldaa"));
   },[])
   const [rd, setRd] = useState('');
   const [fName, setFname] = useState('');
   const [lName, setLname] = useState('');
   const [utas, setUtas] = useState('');
+  const [aimag_id, setAimagID] = useState('');
   const [error, setError] = useState({
     ovog: null,
     ner: null,
@@ -115,12 +118,13 @@ export default function MInfo() {
 
   const handleBurtgel = (e) => {
     e.preventDefault();
-
+    
     if (
       validator.isEmpty(lName) ||
       validator.isEmpty(fName) ||
       validator.isEmpty(rd) ||
-      validator.isEmpty(utas)
+      validator.isEmpty(utas) ||
+      validator.isEmpty(aimag_id)
     ) {
       setError({
         ...error,
@@ -132,7 +136,7 @@ export default function MInfo() {
       ...error,
       main: '',
     });
-    Ectx.insertMyInfo(Ectx.state.burtgel_Id, Ectx.state.email, lName, fName, rd, utas);
+    Ectx.insertMyInfo(Ectx.state.burtgel_Id, Ectx.state.email, lName, fName, rd, utas, aimag_id);
     setSaving(true);
   };
 
@@ -275,6 +279,14 @@ export default function MInfo() {
                 {error.utas && (
                   <span class="error text-danger">{error.utas}</span>
                 )}
+              </div>
+              <div className="form-floating mt-3 mb-3 col">
+              <select className="form-control p-0 ps-3" aria-label="Aimag songolt">
+                {aimags && aimags.length > 0 && 
+                (<option value={Ectx.state.aimag_id}>{aimags[Ectx.state.aimag_id -1].ner}</option>)
+                }
+                
+              </select>
               </div>
             </div>
 
@@ -444,6 +456,14 @@ export default function MInfo() {
                 {error.utas && (
                   <span class="error text-danger">{error.utas}</span>
                 )}
+              </div>
+              <div className="form-floating mt-3 mb-3 col">
+              <select className="form-control p-0 ps-3" aria-label="Aimag songolt" onChange={(e)=>{setAimagID(e.target.value); console.log(aimag_id)}}>
+                <option value="">Аймгийн мэдээллийг сонгоно уу</option>
+              {aimags && aimags.map(aimag=>{
+                return( <option key={aimag.Id} value={aimag.Id}>{aimag.ner}</option>)
+              })}
+              </select>
               </div>
             </div>
 

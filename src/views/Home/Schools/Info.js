@@ -121,13 +121,13 @@ export default function Info() {
   let fill = [...filteredinfo]
   return (
     <>
-      <Card style={{ backgroundColor: '#444' }}  className="container text-light">
+      <Card style={{ backgroundColor: '#02338a' }}  className="container text-light">
       <InputGroup className="no-border text-center">
           <Input
             onChange={(event)=> setST(event.target.value)
             }
             placeholder="Мэргэжлийн нэрээр хайх..."
-            className='text-center fs-4 lead text-white pt-4'
+            className={`text-center fs-4 lead text-white pt-4 ${css.mer__search}`}
           />
         <InputGroupAddon addonType="append"></InputGroupAddon>
       </InputGroup>
@@ -152,7 +152,7 @@ export default function Info() {
         </ol>
       </nav>
 
-          <Table striped bordered hover responsive dark>
+          <Table  bordered hover responsive  style={{background : "#02338a", borderColor : "#f3f3f388", color:"#fff"}} className={`${css["table--hover-blue"]}`}>
             <thead className="text-primary">
               <tr>
               {Ectx.state.burtgel_Id && Ectx.state.email && 

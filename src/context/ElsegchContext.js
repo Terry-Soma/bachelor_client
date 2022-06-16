@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../utils/axios.js';
 const ElsegchContext = React.createContext();
-import validator from 'validator';
 const initialState = {
   burtgel_Id: null,
   email: null,
@@ -14,7 +13,8 @@ const initialState = {
   saving : false,
   too : 5,
   emailVerified : false,
-  mergejils : []
+  mergejils : [],
+  aimag_id : null
 };
 
 export const ElsegchStore = (props) => {
@@ -30,10 +30,8 @@ export const ElsegchStore = (props) => {
           let mergejils = result.data.mergejils[0]?.mergejils.split(',');
           data["mergejils"] = mergejils;
         }
-        console.log(data);
         if(result.data["too"].length > 0){
           data["too"] = 5 - result.data.too[0]?.count;
-          console.log(data["too"]);
         }
         if (isNaN(data)) {
           setState({ ...state, error: null, loading : false, ...data, emailVerified:EV });
@@ -54,16 +52,13 @@ export const ElsegchStore = (props) => {
     axios 
       .post('/elsegch/remember-me', { butDugaar })
       .then(result => {
-        console.log(result.data)
         let data = result.data["butDugaar"];
         if(result.data.mergejils[0]?.mergejils){
           let array = result.data.mergejils[0]?.mergejils.split(',');
           data["mergejils"] =array;
         }
-        console.log(data);
         if(result.data["too"].length > 0){
           data["too"] = 5 - result.data.too[0]?.count;
-          console.log(data["too"]);
         }
         if (isNaN(data)) {
           setState({ ...state, error: null, loading : false, ...data });
@@ -134,7 +129,7 @@ export const ElsegchStore = (props) => {
       });
   };
 
-  const insertMyInfo = (burtgelId, email, ovog, ner, rd, utas) => {
+  const insertMyInfo = (burtgelId, email, ovog, ner, rd, utas, aimag_id) => {
 
     setState({...state, loading:true});
     const data = {
@@ -142,16 +137,15 @@ export const ElsegchStore = (props) => {
       fname:ner,
       email,
       rd,
-      utas
+      utas,
+      aimag_id
     }
     axios.patch(`/elsegch/${burtgelId}`,data)
       .then(result=>{
-        console.log(result.data)
         if(result.data.status =="success"){
-          setState({...state, loading : false, error:null, fname : ner,lname:ovog,utas, rd, saving:true })
+          setState({...state, loading : false, error:null, fname : ner,lname:ovog, utas, rd, aimag_id, saving:true })
         }
       }).catch(error=>{
-        console.log(error)
         setState({...state, error : error.message, loading : false,saving : false})
       })
   };

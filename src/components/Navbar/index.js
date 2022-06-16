@@ -56,6 +56,13 @@ export default function Menu() {
               >
                 Салбар сургууль
               </Link>
+              {/* <Link
+                className="nav-link p-3 fs-4 mx-4"
+                to="/help"
+                onClick={() => setExpanded(false)}
+              >
+                Тусламж
+              </Link> */}
             </Nav>
             {(Ectx.state.burtgel_Id && Ectx.state.email && Ectx.state.emailVerified) ? (
               <Nav className="align-items-center">

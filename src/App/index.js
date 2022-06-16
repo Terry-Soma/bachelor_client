@@ -14,6 +14,7 @@ import School from '../views/Home/School';
 import Info from '../views/Home/Schools/Info';
 import Logout from '../components/Logout';
 import { AdminStore } from '../context/AdminContext';
+import Help from '../views/Home/Help';
 
 export default function App() {
 
@@ -54,6 +55,11 @@ export default function App() {
           <Route path="/my-info">
             <Layout>
               <MInfo />
+            </Layout>
+          </Route>
+          <Route path="/help">
+            <Layout>
+              <Help />
             </Layout>
           </Route>
           <Route path="/logout">

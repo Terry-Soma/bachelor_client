@@ -8,11 +8,10 @@ export default function School() {
   useEffect(() => {
     axios.get('/school')
       .then(({ data })=> {
-        console.log(data.data)
         setData(data.data);
       })
       .catch(function (error) {
-        console.log(error);
+        console.log("aldaa")
       });
   }, []);
 
@@ -20,10 +19,10 @@ export default function School() {
     <div className="container text-secondary py-5">
       <section id={css.school}>
         <div className={css['card-container']}>
-          {data.map((e) => {
+          {data && data.map((e) => {
             let substrings = e.description.split(' ', 20).join(' ');
             let add = e.address.split(' ', 5).join(' ');
-            var res = e.color.substring(0, 5);
+            let res = e.color.substring(0, 5);
             return (
               <>
                 <div className={css.card} key={e.Id}>
