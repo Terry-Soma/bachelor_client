@@ -152,7 +152,7 @@ export default function Info() {
         </ol>
       </nav>
 
-          <Table  bordered hover responsive  style={{background : "#02338a", borderColor : "#f3f3f388", color:"#fff"}} className={`${css["table--hover-blue"]}`}>
+          <Table  bordered hover responsive  style={{background : "#02338a", borderColor : "#f3f3f388", color:"#fff"}}>
             <thead className="text-primary">
               <tr>
               {Ectx.state.burtgel_Id && Ectx.state.email && 

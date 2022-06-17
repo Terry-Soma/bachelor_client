@@ -29,7 +29,6 @@ function AdminDash() {
 
   if(Actx.state.email == null  && Actx.state.emailVerified ==false )
       history.push('/adminlogin')
-  // burtgel/get-count 
   const [data, setData] = useState([]);
   const [sur, setSur] = useState([]);
   const [mer, setMer] = useState([]);
@@ -41,11 +40,7 @@ function AdminDash() {
       .catch((err) => console.log(err));
     axios
       .get("/burtgel/get-count")
-      .then(({ data }) => setSur(data.sdata))
-      .catch((err) => console.log(err));
-    axios
-      .get("/burtgel/get-count")
-      .then(({ data }) => setMer(data.data))
+      .then(({ data }) =>{ setSur(data.sdata); setMer(data.data); } )
       .catch((err) => console.log(err));
   }, []);
   const [q, setQ] = useState("");
@@ -182,12 +177,12 @@ function AdminDash() {
                 <Card className="card-stats">
                   <CardBody>
                     <Row>
-                      <Col className="my-auto" md="7" xs="5">
+                      <Col className="my-auto" md="6" xs="5">
                         <h2 className="fs-4 mb-3">Бүх сургуульд</h2>
                       </Col>
-                      <Col md="5" xs="7">
+                      <Col md="6" xs="7">
                         <div className="numbers">
-                          <p className="card-category fs-5">Нийт элсэгчид</p>
+                          <p className="card-category fs-6">Нийт мэргэжил бүртгэл</p>
                           <CardTitle tag="p">{cnt}</CardTitle>
                           <p />
                         </div>

@@ -5,6 +5,7 @@ import axios from '../../utils/axios.js';
 import ElsegchContext from '../../context/ElsegchContext.js';
 import validator from 'validator';
 import {toast, ToastContainer} from 'react-toastify';
+import {BsTrashFill} from 'react-icons/bs';
 
 export default function MInfo() {
   const Ectx = useContext(ElsegchContext);
@@ -12,27 +13,6 @@ export default function MInfo() {
   const [saving, setSaving ]= useState(false);
   const [aimags, setAimags] = useState([]);
 
-
-  useEffect(()=>{
-    if(Ectx.state.saving && saving)
-      toast.success("Амжилттай хадгаллаа.");
-  },[saving, Ectx.state.fname, Ectx.state.lname, Ectx.state.utas, Ectx.state.rd])  
-
-  useEffect(()=>{
-    let burtgelId = localStorage.getItem("burtgel_Id");
-    if(burtgelId){
-      Ectx.rememberMe(burtgelId);
-    }
-    axios.get(`/elsegch/${burtgelId}/mergejil`)
-      .then(result=>{
-        setMergejils([...result.data.data]);
-      }).catch(err=>
-        toast.error("Уучлаарай алдаа гарлаа. Та дахин туршаад үзээрэй.")
-    );
-    axios.get('/aimag').then(result=>{  
-      setAimags(result.data.data)
-    }).catch(err=> console.log("aldaa"));
-  },[])
   const [rd, setRd] = useState('');
   const [fName, setFname] = useState('');
   const [lName, setLname] = useState('');
@@ -45,6 +25,39 @@ export default function MInfo() {
     utas: null,
     main: "",
   });
+  useEffect(()=>{
+    if(Ectx.state.saving && saving)
+      toast.success("Амжилттай хадгаллаа.");
+    setLname(Ectx.state.lname);
+    setFname(Ectx.state.fname);
+    setUtas(Ectx.state.utas);
+    setRd(Ectx.state.rd);    
+    setAimagID(Ectx.state.aimag_id)
+  }, [saving, Ectx.state.fname, Ectx.state.lname, Ectx.state.utas, Ectx.state.rd, Ectx.state.aimag_id])  
+
+  useEffect(()=>{
+    let burtgelId = localStorage.getItem("burtgel_Id");
+    axios.get(`/elsegch/${burtgelId}/mergejil`)
+      .then(result=>{
+        setMergejils([...result.data.data])
+      }).catch(err=>
+        toast.error("Уучлаарай алдаа гарлаа. Та дахин туршаад үзээрэй.")
+    );
+    axios.get('/aimag').then(result=>{  
+      setAimags(result.data.data)
+    }).catch(err=> console.log("aldaa"));
+  },[])
+
+  useEffect(()=>{
+    let burtgelId = localStorage.getItem("burtgel_Id");
+    axios.get(`/elsegch/${burtgelId}/mergejil`)
+      .then(result=>{
+        setMergejils([...result.data.data])
+      }).catch(err=>
+        toast.error("Уучлаарай алдаа гарлаа. Та дахин туршаад үзээрэй.")
+    );
+  }, [Ectx.state.mergejils.length])
+  
   const handleOvog = (e) => {
     if (validator.isInt(e.target.value)) {
       setError({ ...error, ovog: 'Овог талбарт тоо орох боломжгүй' });
@@ -52,7 +65,6 @@ export default function MInfo() {
     }
     if (validator.isAlpha(e.target.value)) {
       setError({ ...error, ovog: 'Овог талбарт гадаад үсэг орох боломжгүй' });
-
       return;
     }
     setLname(e.target.value);
@@ -78,18 +90,8 @@ export default function MInfo() {
       setError({ ...error, rd: 'Регистр талбарт гадаад үсэг орох боломжгүй' });
       return;
     }
-    if (validator.matches(e.target.value, /[А-ЯӨҮ]{2}[0-9]{8}/gm)) {
-      setRd(e.target.value);
-      setError({
-        ...error,
-        rd: '',
-      });
-      return;
-    }
-    setError({
-      ...error,
-      rd: 'Таны регистрийн дугаар 2 үсэг 8 тоогоос тогтох ёстой',
-    });
+    setError({...error, rd: ''});
+    setRd(e.target.value);
   };
 
   const handleUtas = (e) => {
@@ -118,17 +120,25 @@ export default function MInfo() {
 
   const handleBurtgel = (e) => {
     e.preventDefault();
-    
     if (
       validator.isEmpty(lName) ||
       validator.isEmpty(fName) ||
       validator.isEmpty(rd) ||
       validator.isEmpty(utas) ||
       validator.isEmpty(aimag_id)
-    ) {
+    ){
+      console.log("нэр "+lName+ "..., " +"овог "+ fName + "..., "+  "rd "+ rd + "..., "+  "utas ..., "+ utas +  "..., " +  "aimag ..., "+aimag_id);
       setError({
         ...error,
         main: 'Таны оруулсан өгөгдөл хоосон эсвэл алдаатай байна',
+      });
+      return;
+    }
+    if (!validator.matches(rd, /[А-ЯӨҮ]{2}[0-9]{8}/gm)) {
+      console.log("ajil");
+      setError({
+        ...error,
+        main: 'Регистрийн дугаараа зөв оруулна уу',
       });
       return;
     }
@@ -136,8 +146,8 @@ export default function MInfo() {
       ...error,
       main: '',
     });
-    Ectx.insertMyInfo(Ectx.state.burtgel_Id, Ectx.state.email, lName, fName, rd, utas, aimag_id);
     setSaving(true);
+    Ectx.insertMyInfo(Ectx.state.burtgel_Id, Ectx.state.email, lName, fName, rd, utas, aimag_id);
   };
 
 
@@ -185,8 +195,7 @@ export default function MInfo() {
                   placeholder="Овгоо оруллна уу"
                   name="ovog"
                   onChange={handleOvog}
-                  disabled
-                  value={Ectx.state.lname}
+                  value={lName}
                 />
                 <label htmlFor="ovog" className=" ps-4">
                   Овог
@@ -202,8 +211,7 @@ export default function MInfo() {
                   id="ner"
                   placeholder="Нэрээ оруулна уу"
                   name="ner"
-                  disabled
-                  value={Ectx.state.fname}
+                  value={fName}
                   onChange={handleNer}
                 />
                 <label htmlFor="ner" className=" ps-4">
@@ -222,8 +230,7 @@ export default function MInfo() {
                   id="rd"
                   placeholder="Регистрийн дугаараа оруулна уу"
                   name="rd"
-                  disabled
-                  value={Ectx.state.rd}
+                  value={rd}
                   onChange={handleRd}
                 />
                 <label htmlFor="rd" className="ps-4">
@@ -269,8 +276,7 @@ export default function MInfo() {
                   id="utas"
                   placeholder="Утасны дугаараа оруулна уу"
                   name="utas"
-                  disabled
-                  value={Ectx.state.utas}
+                  value={utas}
                   onChange={handleUtas}
                 />
                 <label htmlFor="utas" className="ps-4">
@@ -281,20 +287,19 @@ export default function MInfo() {
                 )}
               </div>
               <div className="form-floating mt-3 mb-3 col">
-              <select className="form-control p-0 ps-3" aria-label="Aimag songolt">
-                {aimags && aimags.length > 0 && 
-                (<option value={Ectx.state.aimag_id}>{aimags[Ectx.state.aimag_id -1].ner}</option>)
-                }
-                
+              <select className="form-control p-0 ps-3" aria-label="Aimag songolt" onChange={(e)=>setAimagID(e.target.value)} value={aimag_id}>
+              {aimags && aimags.map((aimag)=>{
+                return( <option key={aimag.Id} value={aimag.Id} >{aimag.ner}</option>)
+              })}
               </select>
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" disabled>
+            <button type="submit" className="btn btn-primary">
               {Ectx.state.loading ? (
                 <Spinner animation="border" variant="dark" />
               ) : (
-                ' Хадгалах'
+                ' Өөрчлөх'
               )}
             </button>
           </form>
@@ -313,10 +318,13 @@ export default function MInfo() {
                 mergejils.map( mergejil => {
                   return (
                     <Card key={mergejil.mergejilId} style={{ backgroundColor: '#444' }} className="mb-5 text-light">
-                      <Card.Body>
+                      <Card.Body className='d-flex align-items-center justify-content-between'>
                         <p className='lead fs-4 pt-2'>
                           {mergejil.Mergejil.name}
                         </p>
+                        <button type="submit" className="btn btn-danger" onClick={()=>{Ectx.removeMergejil(mergejil.elsegchId, mergejil.mergejilId)}}>
+                          <BsTrashFill />
+                          </button>
                       </Card.Body>
                     </Card>
                   );
@@ -467,13 +475,14 @@ export default function MInfo() {
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" className="btn btn-primary">
               {Ectx.state.loading ? (
                 <Spinner animation="border" variant="dark" />
               ) : (
                 ' Хадгалах'
               )}
             </button>
+           
           </form>
         </Card.Body>
       </Card>

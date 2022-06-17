@@ -14,12 +14,12 @@ const initialState = {
   too : 5,
   emailVerified : false,
   mergejils : [],
-  aimag_id : null
+  aimag_id : null,
 };
 
 export const ElsegchStore = (props) => {
   const [state, setState] = useState(initialState);
-  const rememberMe = (butDugaar, EV) => {
+  const rememberMe = (butDugaar, EV=false) => {
     setState({...state, loading: true});
     if(EV){
       axios 
@@ -34,18 +34,20 @@ export const ElsegchStore = (props) => {
           data["too"] = 5 - result.data.too[0]?.count;
         }
         if (isNaN(data)) {
-          setState({ ...state, error: null, loading : false, ...data, emailVerified:EV });
+          setState({ ...state, error: null, loading : false, saving:false, ...data, emailVerified:EV });
         }else{
           setState({
             ...state,
             error:null,
+            saving:false,
+            loading: false,
             burtgel_Id: data,
           });
         }
 
       })
       .catch(response => {
-        setState({...state, loading : false, burtgel_Id:null});
+        setState({...state, loading : false, burtgel_Id:null, saving:false});
       });      
       return ;
     }
@@ -61,11 +63,13 @@ export const ElsegchStore = (props) => {
           data["too"] = 5 - result.data.too[0]?.count;
         }
         if (isNaN(data)) {
-          setState({ ...state, error: null, loading : false, ...data });
+          setState({ ...state, error: null, loading : false,  saving:false, ...data });
         }else{
           setState({
             ...state,
             error:null,
+            saving:false,
+            loading:false,
             burtgel_Id: data,
           });
         }
@@ -86,6 +90,7 @@ export const ElsegchStore = (props) => {
         setState({
           ...state,
           emailVerified:true,
+          saving:false,
           loading: false,
         })
         localStorage.setItem("email",state.email);
@@ -112,6 +117,7 @@ export const ElsegchStore = (props) => {
           burtgel_Id : obj["burtgel_Id"],
           email : obj["email"],
           loading:false,
+          saving:false,
           emailVerified : true,
           error:null
         });
@@ -123,6 +129,7 @@ export const ElsegchStore = (props) => {
         setState({
           ...state,
           loading:false,
+          saving:false,
           error :"Уучлаарай таны и-мэйл манай вэб бүртгэлтэй байна...",
           emailVerified : false
         });
@@ -130,8 +137,7 @@ export const ElsegchStore = (props) => {
   };
 
   const insertMyInfo = (burtgelId, email, ovog, ner, rd, utas, aimag_id) => {
-
-    setState({...state, loading:true});
+    setState({...state, loading:true, saving : false});
     const data = {
       lname:ovog,
       fname:ner,
@@ -142,16 +148,13 @@ export const ElsegchStore = (props) => {
     }
     axios.patch(`/elsegch/${burtgelId}`,data)
       .then(result=>{
-        if(result.data.status =="success"){
-          setState({...state, loading : false, error:null, fname : ner,lname:ovog, utas, rd, aimag_id, saving:true })
-        }
+          setState({...state, loading : false, error:null, fname : ner, lname:ovog, utas, rd,  aimag_id, saving: true })
       }).catch(error=>{
-        setState({...state, error : error.message, loading : false,saving : false})
+        setState({...state, loading : false, saving : false});
       })
   };
 
-  const choose = (burtgel_Id, mergejilId, ognoo) => {
-    setState({ ...state, loading : true});
+  const choose = (burtgel_Id, mergejilId, ognoo) => {    
     mergejilId = mergejilId.toString();
     
     if(state.fname == null | state.lname == null | state.rd == null | state.utas == null){
@@ -207,9 +210,26 @@ export const ElsegchStore = (props) => {
     rememberMe(burtgel_Id, EV);
   }
 
+  const removeMergejil = (burtgel_Id, mergejilId) =>{
+    console.log(mergejilId);
+    axios.delete(`/elsegch/${burtgel_Id}/mergejils/${mergejilId}`)
+      .then(result => {
+        // console.log(result.status)
+        if(result.status ==204){
+          mergejilId = mergejilId + "";
+          let mergejilIndex = state.mergejils.indexOf(mergejilId);
+          console.log(mergejilIndex)
+          if(mergejilIndex != -1){
+            state.mergejils.splice(mergejilIndex, 1);
+            setState({...state, error : null, mergejils :state.mergejils, too : ++state.too })
+          }
+        }})
+      .catch(err => console.log(err))
+   
+  }
   return (
     <ElsegchContext.Provider
-      value={{ state, rememberMe, googleOAuth, insertMyInfo, choose ,logout, autoLogin}} >
+      value={{ state, rememberMe, googleOAuth, insertMyInfo, choose ,logout, autoLogin, removeMergejil}} >
       {props.children}
     </ElsegchContext.Provider>
   );

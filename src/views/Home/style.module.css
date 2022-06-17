@@ -29,7 +29,3 @@ ol li{
   cursor: pointer;
   text-decoration: underline;
 }
-
- table  tbody  tr:hover td{
-  border-color: #0073cf !important;
-}
