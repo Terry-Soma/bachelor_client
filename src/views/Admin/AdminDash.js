@@ -12,11 +12,13 @@ import {
   Input,
   Button
 } from "reactstrap";
+import { RiFileExcel2Fill } from "react-icons/ri";
 import {
   dashboard24HoursPerformanceChart,
   dashboardEmailStatisticsChart,
   dashboardNASDAQChart
 } from "./variables/charts.js";
+import { DownloadExcel } from "react-excel-export";
 
 import axios from "../../utils/axios.js";
 import { useHistory } from "react-router";
@@ -24,14 +26,18 @@ import AdminContext from "../../context/AdminContext.js";
 
 function AdminDash() {
   let history = useHistory();
-
+  let filteredinfo = [];
   const Actx = useContext(AdminContext);
 
   if(Actx.state.email == null  && Actx.state.emailVerified ==false )
       history.push('/adminlogin')
+
   const [data, setData] = useState([]);
   const [sur, setSur] = useState([]);
   const [mer, setMer] = useState([]);
+  const [aimag, setAimag] = useState([]);
+  const [q, setQ] = useState("");
+  
   let cnt =0;
   useEffect(() => {
     axios
@@ -42,31 +48,40 @@ function AdminDash() {
       .get("/burtgel/get-count")
       .then(({ data }) =>{ setSur(data.sdata); setMer(data.data); } )
       .catch((err) => console.log(err));
+    axios
+      .get("/aimag")
+      .then(({ data }) => setAimag(data.data))
+      .catch((err) => console.log(err));      
   }, []);
-  const [q, setQ] = useState("");
-  const [searchParam] = useState(["rd"]);
+  
   const handleSearch = (event) => {
     setQ(event.target.value);
   };
-  // function search(items) {
-  //   return items.filter((item) => {
-  //     return searchParam.some((newItem) => {
-  //       return (
-  //         item[newItem].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
-  //       );
-  //     });
-  //   });
-  // }
 
-  let newDate = new Date();
-  let date = newDate.getDate();
-  let month = newDate.getMonth();
-  let year = newDate.getFullYear();
-  let now = year + "/" + month + "/" + date;
-
+  if(q.startsWith("aimag")){
+    let filter = q.split(":")[1];
+    filteredinfo = data.filter(el =>
+      el.aimag != null && el.aimag.toString() == filter )
+  }else if(q.startsWith("reset")){
+    filteredinfo = data;
+  }
+  else{
+    filteredinfo = data.filter(el =>
+      el.rd.toLowerCase().includes(q.toLowerCase())
+    );
+  }
+  
   const [state, setState] = useState(true);
-
-  var Enlist = (
+  let data2 = data.length > 0  && aimag.length > 0 && data.map(el=>{
+    let a = {
+      ...el,
+      BDugaar : el.but,
+      aimag : el.aimag ? aimag && aimag[el.aimag -1].ner : "Аймаг сонгоогүй" 
+    }
+    delete a["but"];
+    return a;
+  });
+  const Enlist = (
     <CardBody>
       <Table responsive>
         <thead className="text-primary">
@@ -78,10 +93,12 @@ function AdminDash() {
             <th>цахим шуудан</th>
             <th>Сонгосон мэргэжлүүд</th>
             <th>Регистерийн дугаар</th>
+            <th>Аймгийн мэдээлэл</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((e) => {
+          { filteredinfo.length > 0 && aimag.length > 0 &&
+          filteredinfo.map((e) => {
             return (
               <>
                 <tr>
@@ -92,6 +109,13 @@ function AdminDash() {
                   <td>{e.email}</td>
                   <td>{e.mergejil}</td>
                   <td>{e.rd}</td>
+                  <td>{e.aimag ?
+                    (e.aimag == 22 ? "Улаанбаатар" 
+                    : (e.aimag == 20 ? "Хөвсгөл" 
+                    : (e.aimag == 19 ? "Ховд"
+                    : (e.aimag == 21 ? "Хэнтий" 
+                    : aimag[e.aimag -1].ner )))) 
+                  : "Аймаг сонгоогүй"}</td>
                 </tr>
               </>
             );
@@ -101,7 +125,7 @@ function AdminDash() {
     </CardBody>
   );
 
-  var Majors = (
+  const Majors = (
     <CardBody>
       <Table responsive>
         <thead className="text-primary">
@@ -133,21 +157,22 @@ function AdminDash() {
       <div className="content">
         <section id="Up" />
         <Button
-          style={{ right: "0", position: "fixed", zIndex: "100" }}
+          style={{ right: "0", position: "fixed", zIndex: "100", background:"#93939388" }}
           href="#Down"
         >
-          Down
+          Доош
         </Button>
         <Button
           style={{
             right: "0",
             marginRight: "100px",
             position: "fixed",
-            zIndex: "100"
+            zIndex: "100",
+            background:"#93939388"
           }}
           href="#Up"
         >
-          Up
+          Дээш
         </Button>
         <Row>
           {sur.map((e) => {
@@ -220,34 +245,48 @@ function AdminDash() {
             <Card>
               <CardHeader>
                 <CardTitle tag="h5">
-                  <Button
+                  <button 
+                  className="btn btn-secondary"
                     onClick={() => {
                       setState(true);
                     }}
                   >
                     Элсэгчдийн мэдээлэл
-                  </Button>
-                  <Button
+                  </button>
+                  <button
+                  className="btn btn-secondary"
                     onClick={() => {
                       setState(false);
                     }}
                   >
                     Мэргэжил
-                  </Button>
-                </CardTitle>
-                <Input
-                  onChange={(e) => {
-                    handleSearch(e);
-                  }}
-                  type="text"
+                  </button>
+                  <select className="btn btn-secondary p-0 " style={{background : "rgb(102, 97, 91)"}} aria-label="Aimag songolt" onChange={(e)=> setQ(`aimag:${e.target.value}`)} >
+                    <option value="reset" onClick={(e)=>{setQ(e.target.value)}}>Аймгийн мэдээллээр хайх</option>
+                 {aimag && aimag.map((aimag)=>{
+                return( <option key={aimag.Id} value={aimag.Id} >{aimag.ner}</option>)
+                })}
+              </select>
+              <DownloadExcel
+                fileName={`IZburtgel${new Date().getFullYear()}`}
+                data={data2}
+                buttonLabel={<RiFileExcel2Fill />}
+              
                 />
-              </CardHeader>
+             
+            </CardTitle>
+                <Input
+                  onChange={handleSearch}
+                  type="text"
+                  placeholder="Регистрийн дугаараар хайх"
+                />
+           </CardHeader>
               {state == true ? Enlist : Majors}
-            </Card>
+           </Card>
           </Col>
         </Row>
         <Row>
-          {/* <Col md="4">
+          <Col md="4">
             <Card>
               <CardHeader>
                 <CardTitle tag="h5">Email Statistics</CardTitle>
@@ -260,7 +299,7 @@ function AdminDash() {
                 />
               </CardBody>
             </Card>
-          </Col> */}
+          </Col>
           <Col md="8">
             <Card className="card-chart">
               <CardHeader>
@@ -275,10 +314,6 @@ function AdminDash() {
                   height={100}
                 />
               </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="card-stats">{now}</div>
-              </CardFooter>
             </Card>
           </Col>
         </Row>
