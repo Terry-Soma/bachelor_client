@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { SectionTilesProps } from './SectionProps';
 import SectionHeader from './SectionHeader';
 import './style.css';
+import {IoHelpSharp} from 'react-icons/io5'
 import feature1 from './../../assets/img/feature-tile-icon-01.svg'
 import feature2 from './../../assets/img/feature-tile-icon-02.svg'
 import feature3 from './../../assets/img/feature-tile-icon-03.svg'
@@ -64,6 +65,23 @@ const FeaturesTiles = ({
         <div className={innerClasses}>
           <SectionHeader data={sectionHeader} className="center-content" />
           <div className={tilesClasses}>
+          <div className="tiles-item reveal-from-bottom hoverr">
+              <div className="tiles-item-inner">
+                <div className="features-tiles-item-header">
+                  <div className="features-tiles-item-image mb-16">
+                      <IoHelpSharp style={{height:"64px", width:"64px", color:"#fff4f4"}}/>
+                  </div>
+                </div>
+                <div className="features-tiles-item-content">
+                  <h4 className="mt-0 mb-8">
+                    Тусламж
+                    </h4>
+                  <p className="m-0 text-sm">
+                   Тусламж цэснээс хэрхэн бүртгүүлэх, мэргэжил сонгох талаарх дэлгэрэнгүй видео
+                    </p>
+                </div>
+              </div>
+            </div>
             <div className="tiles-item reveal-from-bottom hoverr">
               <div className="tiles-item-inner">
                 <div className="features-tiles-item-header">

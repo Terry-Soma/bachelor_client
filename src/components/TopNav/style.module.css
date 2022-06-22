@@ -1,35 +1,13 @@
 .headin {
     height: 100px;
     width: 100%;
-    background-image: url(./../../assets/img/main-nav.jpg);
+    background-image: url(./../../assets/img/cover.jpg);
     background-size: cover; 
     background-repeat: no-repeat;
     background-size: cover; 
-    background-position: right;
+    background-position: left;
   }
 
-  @font-face {
-    font-family: work-sans;
-    src: url(./../../assets/fonts/nucleo-icons.woff2);
-  }
-  .headin h2 {
-    padding-top: 30px;
-    padding-left: 300px;
-    color: wheat;
-    font-weight: bolder;
-    font-size: 2.5rem;
-    font-family: work-sans;
-    display: none;
-  }
-  
-  .headin p {
-    padding-left: 300px;
-    color: wheat;
-    font-weight: bolder;
-    font-size: 1.5rem;
-    font-family: work-sans;
-    display: none;
-  }
 
   @media screen and (min-width: 768px) {
     .headin{
@@ -37,12 +15,4 @@
       background-position: center center;
     }
 
-    .headin h2 {
-      display: block;
-      padding-top: 6rem;
-      margin-bottom: 1rem;
-    }
-    .headin p{
-      display: block;
-    }
   }

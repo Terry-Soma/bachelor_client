@@ -49,6 +49,17 @@ export default function Footer() {
                     Салбар сургууль
                   </Link>
                 </li>
+                <li>
+                    <Link
+                    className="text-reset"
+                    to="/help"
+                    onClick={() => setExpanded(false)}
+                  >
+                    Тусламж
+                  </Link>
+              </li>
+
+                
                 {Ectx.state.burtgel_Id && Ectx.state.email ? (
                   <>
                     <li>
@@ -81,7 +92,6 @@ export default function Footer() {
                     цогцолбор
                     </span>
                  </p>
-                {/* </p> */}
                 <p className='d-flex gap-2 align-items-center justify-content-center justify-content-lg-start  mb-3'>
                  <BsFillEnvelopeFill />
                  <span> info@ikhzasag.edu.mn</span>
